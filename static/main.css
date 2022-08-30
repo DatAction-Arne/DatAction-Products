@@ -1,0 +1,219 @@
+html {
+  overflow-y: scroll;
+}
+
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #444444;
+}
+
+
+.bg-steel {
+  background-color: #282828;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #444444;
+}
+
+a.article-title:hover {
+  color: #428bca;
+  text-decoration: none;
+}
+
+.article-content {
+  white-space: pre-line;
+}
+
+.article-img {
+  height: 65px;
+  width: 65px;
+  margin-right: 16px;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a:hover {
+  color: #333;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.account-img {
+  height: 125px;
+  width: 125px;
+  margin-right: 20px;
+  margin-bottom: 16px;
+}
+
+.account-heading {
+  font-size: 2.5rem;
+}
+
+.btn-custom {
+  background: #d71635;
+  border-color: #d71635;
+}
+
+.logo-img {
+  height: 30px;
+  margin-right: 20px;
+}
+
+.form-control::placeholder {
+  font-size: 0.95rem;
+  color: #aaa;
+}
+
+.product-img {
+  width:100%;
+
+}
+
+.button-size {
+  width:200px;
+  margin-right:20px;
+}
+
+.table {
+    max-width: none;
+    table-layout: fixed;
+    word-wrap: break-word;
+}
+
+@media (min-width: 576px) {
+    .card-columns {
+        column-count: 1;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-columns {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-columns {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-columns {
+        column-count: 2;
+    }
+}
+
+@media (min-width: 992px) {
+    .btn-filter {
+        width: 45%;
+    }
+}
+
+@media (max-width: 992px) {
+    .btn-filter {
+        width: 100%;
+    }
+}
+
+
+.heart {
+  font-size: 25px;
+	color:red;
+}
+
+.btn-light, .btn-light:hover, .btn-light:active, .btn-light:visited {
+    background-color: #c9c9c9 !important;
+}
+
+.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:visited {
+    background-color: #a3a3a3 !important;
+    border-color: #a3a3a3;
+}
+
+
+
+
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+input[type=text] {
+  width: 100%;
+}
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-top: none;
+  z-index: 99;
+  max-height: 400px;
+  overflow: auto;
+  /*position the autocomplete items to be the same width as the container:*/
+  left: 41.542px;
+  right: 0;
+  top:38px;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: #a3a3a3 !important;
+  color: #ffffff;
+}
+
+
+.comp-img {
+  max-width:250px;
+
+}
+
+@media (min-width: 768px) {
+    .comp-img {
+        position: relative;
+        top:25%;
+    }
+}
