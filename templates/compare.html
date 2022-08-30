@@ -1,0 +1,231 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="col-sm-12" style="text-align:center; padding-bottom:20px;">
+  <a href="{{ url_for('download_pdf', product_name1=product_name1, product_name2=product_name2) }}" class="btn btn-danger " target="_blank" style="width:300px;">Exporteer PDF</a>
+</div>
+<div class="col-sm-6">
+  <form action="{{ url_for('compare', product_name1='search=', product_name2=product_name2) }}" method="post" autocomplete="off" >
+    <div class="input-group" style="padding-bottom:20px;">
+        <div class="input-group-btn">
+          <button id="searchButton" type="submit" class="btn btn-danger"> <i class="fa fa-search"> </i> </button>
+        </div>
+        <input role="form" name="searchInput1" id="autocomplete" type="text" placeholder="Zoeken..." aria-describedby="button-addon8" class="form-control">
+
+      </div>
+  </form>
+  {% if (product_name1 not in urlList) and (not product_name1.startswith('search=')) %}
+    <div class="content-section">
+      <div class="row">
+        <div class="col-md-4 pull-md-right" style="text-align:center;">
+          {% if item1.iloc[0]['image'] %}
+            <img class="product-img comp-img" src="{{ url_for('static', filename=item1.iloc[0]['image']) }}">
+          {% else %}
+            <img class="product-img comp-img" src="/static/no_image.png" >
+          {% endif %}
+        </div>
+
+        <div class="col-md-8"  >
+            {% if item1.iloc[0]['new'] %}
+              <h1 class="mt-5"><span class="badge bg-danger text-light">NEW</span> {{ item1.iloc[0]['product-name'] }}</h1>
+            {% else %}
+              <h1 class="mt-5"> {{ item1.iloc[0]['product-name'] }}</h1>
+            {% endif %}
+            <div class="container-fluid">
+              <span class="iconify" data-icon="mdi:information-variant"></span>
+              Link naar spec sheet:
+              <a href="{{ item1.iloc[0]['link'] }}"> HIER </a>
+            </div>
+            {% if item1.iloc[0]['accessories'] %}
+              <div class="container-fluid">
+                <span class="iconify" data-icon="ic:baseline-cable"></span>
+                Link naar accessoires:
+                <a href="{{ item1.iloc[0]['accessories'] }}"> HIER </a>
+              </div>
+            {% endif %}
+            <br/>
+            <div class="container-fluid ">
+              <button type="button" class="btn btn-light" disabled>
+
+                <i class="heart fa fa-heart-o centered" style="display:flex; justify-content:center;"></i>
+              </button>
+
+            </div>
+        </div>
+      </div>
+      <br/>
+      <br/>
+      <div class= "container-fluid" >
+        {% set l = (specs1.columns|length) %}
+        {% set l = l|round%}
+
+
+
+        <div class="card border-0">
+          <table class="table" border="2" cellspacing="0" cellpadding="5">
+            {% for i in range(0, l|int) %}
+
+              <tr>
+                <td width="35%"><b>{{ specs1.columns[i] }}</b></td>
+                <td>
+                  {% for content in specs1[specs1.columns[i]].dropna() %}
+                    {% for el in content %}
+                      {% if el != 0 %}
+                        {{ el }}<br/>
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+
+                </td>
+              </tr>
+            {% endfor %}
+          </table>
+          <br/>
+
+        </div>
+
+
+      </div>
+    </div>
+  {% else %}
+  <div class="list-group">
+      {% for i in range(0, products1|length) %}
+        <a href="{{ url_for('compare', product_name1=products1.iloc[i]['product-name'], product_name2=product_name2) }}" class="list-group-item list-group-item-action">
+          <div class="row">
+            <div class="col-sm-2" style="margin-bottom:auto; margin-top:auto; margin-left:auto; margin-right:auto;">
+              {% if products1.iloc[i]['image'] %}
+                <img class="img-fluid product-img" src="{{ url_for('static', filename=products1.iloc[i]['image']) }}" style="max-width: 150px; ">
+              {% else %}
+                <img class="img-fluid product-img" src="/static/no_image.png" style="max-width: 150px; ">
+              {% endif %}
+            </div>
+            <div class="col-md-10">
+              {% if products1.iloc[i]['new'] %}
+                <h4 class="mt-0"><span class="badge bg-danger text-light">NEW</span> {{ products1.iloc[i]['product-name'] }}</h4>
+              {% else %}
+                <h4 class="mt-0"> {{ products1.iloc[i]['product-name'] }}</h4>
+              {% endif %}
+
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+
+  </div>
+
+  {% endif %}
+</div>
+
+<div class="col-sm-6">
+  <form action="{{ url_for('compare', product_name1=product_name1, product_name2='search=') }}" method="post" autocomplete="off" >
+    <div class="input-group" style="padding-bottom:20px;">
+        <div class="input-group-btn">
+          <button id="searchButton2" type="submit" class="btn btn-danger"> <i class="fa fa-search"> </i> </button>
+        </div>
+        <input role="form" name="searchInput2" id="autocomplete2" type="text" placeholder="Zoeken..." aria-describedby="button-addon8" class="form-control">
+
+      </div>
+  </form>
+  {% if (product_name2 not in urlList) and (not product_name2.startswith('search=')) %}
+    <div class="content-section">
+      <div class="row">
+        <div class="col-md-4 pull-md-right" style="text-align:center;">
+          {% if item2.iloc[0]['image'] %}
+            <img class="product-img comp-img" src="{{ url_for('static', filename=item2.iloc[0]['image']) }}">
+          {% else %}
+            <img class="product-img comp-img" src="/static/no_image.png" >
+          {% endif %}
+        </div>
+
+        <div class="col-md-8"  >
+            {% if item2.iloc[0]['new'] %}
+              <h1 class="mt-5"><span class="badge bg-danger text-light">NEW</span> {{ item2.iloc[0]['product-name'] }}</h1>
+            {% else %}
+              <h1 class="mt-5"> {{ item2.iloc[0]['product-name'] }}</h1>
+            {% endif %}
+            <div class="container-fluid">
+              <span class="iconify" data-icon="mdi:information-variant"></span>
+              Link naar spec sheet:
+              <a href="{{ item2.iloc[0]['link'] }}"> HIER </a>
+            </div>
+            {% if item2.iloc[0]['accessories'] %}
+              <div class="container-fluid">
+                <span class="iconify" data-icon="ic:baseline-cable"></span>
+                Link naar accessoires:
+                <a href="{{ item2.iloc[0]['accessories'] }}"> HIER </a>
+              </div>
+            {% endif %}
+            <br/>
+            <div class="container-fluid ">
+              <button type="button" class="btn btn-light" disabled>
+
+                <i class="heart fa fa-heart-o centered" style="display:flex; justify-content:center;"></i>
+              </button>
+
+            </div>
+        </div>
+      </div>
+      <br/>
+      <br/>
+      <div class= "container-fluid" >
+        {% set l = (specs2.columns|length) %}
+        {% set l = l|round%}
+
+
+
+        <div class="card border-0">
+          <table class="table" border="2" cellspacing="0" cellpadding="5">
+            {% for i in range(0, l|int) %}
+
+              <tr>
+                <td width="35%"><b>{{ specs2.columns[i] }}</b></td>
+                <td>
+                  {% for content in specs2[specs2.columns[i]].dropna() %}
+                    {% for el in content %}
+                      {% if el != 0 %}
+                        {{ el }}<br/>
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+
+                </td>
+              </tr>
+            {% endfor %}
+          </table>
+          <br/>
+
+        </div>
+
+
+      </div>
+    </div>
+  {% else %}
+  <div class="list-group">
+      {% for i in range(0, products2|length) %}
+        <a href="{{ url_for('compare', product_name1=product_name1, product_name2=products2.iloc[i]['product-name']) }}" class="list-group-item list-group-item-action">
+          <div class="row">
+            <div class="col-sm-2" style="margin-bottom:auto; margin-top:auto; margin-left:auto; margin-right:auto;">
+              {% if products2.iloc[i]['image'] %}
+                <img class="img-fluid product-img" src="{{ url_for('static', filename=products2.iloc[i]['image']) }}" style="max-width: 150px; ">
+              {% else %}
+                <img class="img-fluid product-img" src="/static/no_image.png" style="max-width: 150px; ">
+              {% endif %}
+            </div>
+            <div class="col-md-10">
+              {% if products2.iloc[i]['new'] %}
+                <h4 class="mt-0"><span class="badge bg-danger text-light">NEW</span> {{ products2.iloc[i]['product-name'] }}</h4>
+              {% else %}
+                <h4 class="mt-0"> {{ products2.iloc[i]['product-name'] }}</h4>
+              {% endif %}
+
+            </div>
+          </div>
+        </a>
+      {% endfor %}
+
+  </div>
+
+  {% endif %}
+</div>
+
+
+{% endblock content %}

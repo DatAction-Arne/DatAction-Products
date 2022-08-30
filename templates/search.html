@@ -1,0 +1,123 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<div class="col-sm-12">
+    <form action="{{ url_for('home') }}" method="post" autocomplete="off" >
+      <div class="input-group" style="padding-bottom:20px;">
+          <div class="input-group-btn">
+            <button id="searchButton" type="submit" class="btn btn-danger"> <i class="fa fa-search"> </i> </button>
+          </div>
+          <input role="form" name="searchInput" id="autocomplete" type="text" placeholder="Zoeken..." aria-describedby="button-addon8" class="form-control">
+
+        </div>
+    </form>
+    <div class="list-group">
+        {% for i in range(0, iter) %}
+          <a href="{{ url_for('item', product_name=products.iloc[i]['product-name'], product_group=products.iloc[i]['product-group']) }}" class="list-group-item list-group-item-action">
+            <div class="row">
+              <div class="col-sm-2" style="margin-bottom:auto; margin-top:auto; margin-left:auto; margin-right:auto;">
+                {% if products.iloc[i]['image'] %}
+                  <img class="img-fluid product-img" src="{{ url_for('static', filename=products.iloc[i]['image']) }}" style="max-width: 150px; ">
+                {% else %}
+                  <img class="img-fluid product-img" src="/static/no_image.png" style="max-width: 150px; ">
+                {% endif %}
+              </div>
+              <div class="col-md-10">
+                {% if products.iloc[i]['new'] %}
+                  <h4 class="mt-0"><span class="badge bg-danger text-light">NEW</span> {{ products.iloc[i]['product-name'] }}</h4>
+                {% else %}
+                  <h4 class="mt-0"> {{ products.iloc[i]['product-name'] }}</h4>
+                {% endif %}
+
+                    {% if products.iloc[i]['CAMERA'] %}
+
+                      {% set content = products.iloc[i]['CAMERA'] %}
+                      <b>{{ 'CAMERA' }}</b>: &nbsp;
+                      {% if 'front' in content|join(' ') %}
+                        {% if 'rear' in content|join(' ') %}
+                          {{ 'Front & Rear' }} &nbsp;
+                        {% else %}
+                          {{ 'Front' }} &nbsp;
+                        {% endif %}
+                      {% else %}
+                        {{ 'Rear' }} &nbsp;
+                      {% endif %}
+                    {% endif %}
+
+
+                    {% if products.iloc[i]['WWAN'] %}
+                      <b>{{ 'WWAN' }}</b> &nbsp;
+                    {% endif %}
+
+                    {% if products.iloc[i]['CORDLESS'] %}
+                      <b>{{ 'CORDLESS' }}</b> &nbsp;
+                    {% endif %}
+
+
+                    {% if products.iloc[i]['GPS']   %}
+                      <b>{{ 'GPS' }}</b> &nbsp;
+                    {% endif %}
+
+
+                    {% if products.iloc[i]['OS']  %}
+                      {% set content = products.iloc[i]['OS'] %}
+                      <b>{{ 'OS' }}</b>: &nbsp;
+                      {{ (content|join(", ")).split(', 0', 1)[0] }}&nbsp;
+                    {% endif %}
+
+
+                    {% if products.iloc[i]['SCANNING']   %}
+                      {% set content = products.iloc[i]['SCANNING'] %}
+                      <b>{{ 'SCANNING' }}</b>: &nbsp;
+                      {% set counter = namespace(value=1) %}
+                      {% for el in content %}
+                        {% if el %}
+                          {{ counter.value }})
+                          {{ el }}
+                          {% set counter.value = counter.value + 1 %}
+                          &nbsp;
+                        {% endif %}
+                      {% endfor %}
+                    {% endif %}
+
+
+                    {% if products.iloc[i]['SEALING']   %}
+                      {% set content = products.iloc[i]['SEALING'] %}
+                      <b>{{ 'SEALING' }}</b>: &nbsp;
+                      {{ (content|join(", ")).split(', 0', 1)[0] }}&nbsp;
+                    {% endif %}
+
+
+                    {% if products.iloc[i]['WIFI']   %}
+                      <b>{{ 'WIFI' }}</b> &nbsp;
+                    {% endif %}
+
+                    {% if products.iloc[i]['SPEED']    %}
+                      {% set content = products.iloc[i]['SPEED'] %}
+                      <b>{{ 'SPEED' }}</b>: &nbsp;
+                      {{ (content|join(", ")).split(', 0', 1)[0] }}&nbsp;
+                    {% endif %}
+
+                    {% if products.iloc[i]['PRINT WIDTH']   %}
+                      {% set content = products.iloc[i]['PRINT WIDTH'] %}
+                      <b>{{ 'PRINT WIDTH' }}</b>: &nbsp;
+                      {{ (content|join(", ")).split(', 0', 1)[0] }}&nbsp;
+                    {% endif %}
+
+                    {% if products.iloc[i]['RESOLUTION']   %}
+                      {% set content = products.iloc[i]['RESOLUTION'] %}
+                      <b>{{ 'RESOLUTION' }}</b>: &nbsp;
+                      {{ (content|join(", ")).split(', 0', 1)[0] }}&nbsp;
+                    {% endif %}
+
+              </div>
+            </div>
+          </a>
+        {% endfor %}
+
+    </div>
+</div>
+
+
+{% endblock content %}

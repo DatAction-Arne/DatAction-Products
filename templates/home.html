@@ -1,0 +1,107 @@
+{%extends "layout.html" %}
+{% block content %}
+<div class="col-sm-9">
+    <form action="{{ url_for('home') }}" method="post" autocomplete="off" >
+      <div class="input-group" style="padding-bottom:20px;">
+          <div class="input-group-btn">
+            <button id="searchButton" type="submit" class="btn btn-danger"> <i class="fa fa-search"> </i> </button>
+          </div>
+          <input role="form" name="searchInput" id="autocomplete" type="text" placeholder="Zoeken..." aria-describedby="button-addon8" class="form-control">
+
+        </div>
+    </form>
+    <div class="row" style="padding-bottom: 30px;">
+      {% for product in products[0:3]%}
+      <div class="col-sm-4">
+        <div class="card">
+          <img class="card-img-top" src="{{product.image}}" style="max-width:40%; margin-left:auto; margin-right:auto; padding-top:20px;" alt="Card image cap">
+          <div class="card-body" style="text-align:center;">
+            <h5 class="card-title" style="font-size:18px; font-weight:bold;">{{product.product}}</h5>
+            <p class="card-text"></p>
+            <a href="{{ url_for('product_group', product_group=product.url, search='') }}" class="btn btn-secondary">Ga verder</a>
+          </div>
+        </div>
+      </div>
+      {%endfor%}
+
+    </div>
+
+    <div class="row" style="padding-bottom: 30px;">
+      {% for product in products[3:6]%}
+      <div class="col-sm-4">
+        <div class="card">
+          <img class="card-img-top" src="{{product.image}}" style="max-width:40%; margin-left:auto; margin-right:auto; padding-top:20px;" alt="Card image cap">
+          <div class="card-body" style="text-align:center;">
+            <h5 class="card-title" style="font-size:18px; font-weight:bold;">{{product.product}}</h5>
+            <p class="card-text"></p>
+            <a href="{{ url_for('product_group', product_group=product.url, search='') }}" class="btn btn-secondary">Ga verder</a>
+          </div>
+        </div>
+      </div>
+      {%endfor%}
+
+    </div>
+
+    <div class="row" style="padding-bottom: 30px;">
+      {% for product in products[6:9]%}
+      <div class="col-sm-4">
+        <div class="card">
+          <img class="card-img-top" src="{{product.image}}" style="max-width:40%; margin-left:auto; margin-right:auto; padding-top:20px;" alt="Card image cap">
+          <div class="card-body" style="text-align:center;">
+            <h5 class="card-title" style="font-size:18px; font-weight:bold;">{{product.product}}</h5>
+            <p class="card-text"></p>
+            <a href="{{ url_for('product_group', product_group=product.url, search='') }}" class="btn btn-secondary">Ga verder</a>
+          </div>
+        </div>
+      </div>
+      {%endfor%}
+
+    </div>
+
+    <div class="row" style="padding-bottom: 30px;">
+      {% for product in products[9:12]%}
+      <div class="col-sm-4">
+        <div class="card">
+          <img class="card-img-top" src="{{product.image}}" style="max-width:40%; margin-left:auto; margin-right:auto; padding-top:20px;" alt="Card image cap">
+          <div class="card-body" style="text-align:center;">
+            <h5 class="card-title" style="font-size:18px; font-weight:bold;">{{product.product}}</h5>
+            <p class="card-text"></p>
+            <a href="{{ url_for('product_group', product_group=product.url, search='') }}" class="btn btn-secondary">Ga verder</a>
+          </div>
+        </div>
+      </div>
+      {%endfor%}
+
+    </div>
+
+
+</div>
+
+
+
+{% endblock content %}
+
+{% block favorites%}
+<div class="col-md-3">
+  <div class="content-section">
+    <h3>Favorieten</h3>
+    <p class='text-muted'>
+      <ul class="list-group">
+        <li class="list-group-item list-group-item-light">
+            <a href="{{ url_for('item', product_name='Zebra MC9300', product_group='handterminals') }}" >Zebra MC9300</a>
+        </li>
+        <li class="list-group-item list-group-item-light">
+            <a href="{{ url_for('item', product_name='Datalogic Skorpio X5', product_group='handterminals') }}" >Datalogic Skorpio X5</a>
+        </li>
+        <li class="list-group-item list-group-item-light">
+            <a href="{{ url_for('item', product_name='Honeywell Thor VM3', product_group='heftruck-terminals') }}" >Honeywell Thor VM3</a>
+        </li>
+        <li class="list-group-item list-group-item-light">
+            <a href="{{ url_for('item', product_name='Panasonic THOUGHBOOK G2', product_group='tablets') }}" >Panasonic TOUGHBOOK G2</a>
+        </li>
+      </ul>
+    </p>
+  </div>
+</div>
+
+{%endblock favorites%}
