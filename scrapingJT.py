@@ -451,14 +451,13 @@ def scrapingJT(products):
                     dictProduct[key] = df[key].to_list()
 
                 # Check if product name in dataframe
-                if not dfProduct[dfProduct['product-name'] == dictProduct['product-name'].replace('/','-')].empty:
+                if not dfProduct[dfProduct['product-name'] == dictProduct['product-name']].empty:
                     dictProduct['release-date'] = dfProduct.loc[dfProduct['product-name'] == dictProduct['product-name'], 'release-date'].values[0]
                     newRow = pd.DataFrame.from_records([dictProduct])
-                    dfProduct.loc[dfProduct['product-name'] == dictProduct['product-name'], newRow.columns] = newRow.values
+                    dfProduct.loc[(dfProduct['product-name'] == dictProduct['product-name']), newRow.columns] = newRow.values
                 else:
                     dfProduct = pd.concat([dfProduct, pd.DataFrame.from_records([dictProduct])], ignore_index=True)
 
-                #print(dfProduct)
                 print("{} finished".format(nameProduct))
 
 
