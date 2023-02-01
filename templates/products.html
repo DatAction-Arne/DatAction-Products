@@ -5,8 +5,8 @@
   <div class="content-section">
     <h3>Filter</h3>
     <form method="post" action="{{ url_for('product_group', product_group=product_group, search='') }}">
-      <a href="{{ url_for('product_group', product_group=product_group, search='reset') }}" type="button" class="btn btn-danger btn-filter" >Reset</a> &nbsp;
-      <input role = "form" type="submit" class="btn btn-danger btn-filter" value="Toepassen"/>
+      <a href="{{ url_for('product_group', product_group=product_group, search='reset') }}" type="button" class="btn btn-danger btn-filter" style="background-color:#252FA5;border-color:#252FA5">Reset</a> &nbsp;
+      <input role = "form" type="submit" class="btn btn-danger btn-filter" style="background-color:#252FA5;border-color:#252FA5" value="Toepassen"/>
       {% for el in filter.keys() %}
         {% if el in ['WWAN (4G)', 'GPS', 'WiFi', 'Bluetooth', 'Freezer', 'Cordless'] %}
         <div>
@@ -78,7 +78,7 @@
     <form action="{{ url_for('home') }}" method="post" autocomplete="off" >
       <div class="input-group" style="padding-bottom:20px;">
           <div class="input-group-btn">
-            <button id="searchButton" type="submit" class="btn btn-danger"> <i class="fa fa-search"> </i> </button>
+            <button id="searchButton" type="submit" class="btn btn-danger" style="background-color:#252FA5;border-color:#252FA5"> <i class="fa fa-search"> </i> </button>
           </div>
           <input role="form" name="searchInput" id="autocomplete" type="text" placeholder="Zoeken..." aria-describedby="button-addon8" class="form-control">
 
