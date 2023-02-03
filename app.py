@@ -13,14 +13,14 @@ subgroups = [
             { 'product' : "HANDTERMINALS", 'image' : 'static/handterminal.jpg', 'url' : 'handterminals' },
             { 'product' : "HEFTRUCK TERMINALS", 'image' : 'static/heftruckterminal.jpg', 'url' : 'heftruck-terminals' },
             { 'product' : "RFID", 'image' : 'static/rfid.jpg', 'url' : 'rfid' },
-            { 'product' : "VOICE PICKING", 'image' : 'static/voice.jpg', 'url' : 'voice' },
+            ##{ 'product' : "VOICE PICKING", 'image' : 'static/voice.jpg', 'url' : 'voice' },
             { 'product' : "WEARABLE COMPUTERS", 'image' : 'static/wearablecomputer.jpg', 'url' : 'wearable-computers' },
-            { 'product' : "FIXED SCANNERS", 'image' : 'static/scanner.png', 'url' : 'fixed-scanners' },
+            ##{ 'product' : "FIXED SCANNERS", 'image' : 'static/scanner.png', 'url' : 'fixed-scanners' },
             { 'product' : "PRINTERS", 'image' : 'static/printer.jpg', 'url' : 'printers' },
             { 'product' : "TABLETS", 'image' : 'static/tablet.jpg', 'url' : 'tablets' },
             { 'product' : "RUGGED LAPTOPS", 'image' : 'static/ruggedlaptop.jpg', 'url' : 'rugged-laptops' },
             { 'product' : "PDA'S", 'image' : 'static/pda.jpg', 'url' : 'pda' },
-            { 'product' : "TOUCH PC'S", 'image' : 'static/touchpc.png', 'url' : 'touch-pc' },
+            ##{ 'product' : "TOUCH PC'S", 'image' : 'static/touchpc.png', 'url' : 'touch-pc' },
             ]
 
 # Formatting
