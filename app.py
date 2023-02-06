@@ -77,65 +77,97 @@ def home():
         #print(request.form)
         #print(request.form['searchInput'])
         return redirect(url_for('search', search=request.form['searchInput']))
+
     return render_template('home.html', products=subgroups, names=products['product-name'].tolist())
 
-@app.route("/<product_group>/", methods=['GET', 'POST'])
+# @app.route("/<product_group>", methods=['GET', 'POST'])
+# def product_group(product_group):
+#     session['product-group'] = product_group
+#     search = request.args.to_dict()
+#     #print('search: ',search)
+#
+#     filter = init_filters(product_group)
+#
+#     if request.method == 'GET':
+#         print('product_group', 'GET')
+#         if (request.args.to_dict()['search']) and (search['search'] != 'reset'):
+#             dict = (ast.literal_eval(request.args.to_dict()['search']))
+#
+#             session['filter'] = dict
+#             productsFilter = products.loc[products['product-group'] == product_group]
+#
+#             # Get products based on filter
+#             productsFilter = filter_items(dict, productsFilter)
+#
+#         else:
+#             productsFilter = products.loc[products['product-group'] == product_group]
+#
+#         #print('search : ', search)
+#         if search['search'] == '' or search['search'] == 'reset':
+#             dict = {}
+#         else:
+#             dict = ast.literal_eval(search['search'])
+#
+#         return render_template('products.html',
+#                                 iter=len(productsFilter),
+#                                 products=productsFilter,
+#                                 filter=filter,
+#                                 product_group=product_group,
+#                                 search=dict,
+#                                 names=products['product-name'].tolist()
+#                                 )
+#     else:
+#         print('product_group', 'POST')
+#         search = request.form.to_dict()
+#         return redirect(url_for('filter_group',
+#                                 product_group=product_group,
+#                                 search=search)
+#                         )
+
+@app.route("/<product_group>", methods=['GET', 'POST'])
 def product_group(product_group):
-    session['product-group'] = product_group
-    search = request.args.to_dict()
-    #print('search: ',search)
 
-    filter = init_filters(product_group)
-
-    if request.method == 'GET':
-        #print('product_group', 'GET')
-        if (request.args.to_dict()['search']) and (search['search'] != 'reset'):
-            dict = (ast.literal_eval(request.args.to_dict()['search']))
-
-            session['filter'] = dict
-            productsFilter = products.loc[products['product-group'] == product_group]
-
-            # Get products based on filter
-            productsFilter = filter_items(dict, productsFilter)
-
-        else:
-            productsFilter = products.loc[products['product-group'] == product_group]
-
-        #print('search : ', search)
-        if search['search'] =='' or search['search'] =='reset':
-            dict = {}
-        else:
-            dict = ast.literal_eval(search['search'])
+    if request.method == 'POST':
+        filter = request.form.to_dict()
+        return redirect(url_for("filter_group", product_group = product_group, filter = filter))
+    else:
+        filter = request.args.to_dict()
+        productsFilter = products.loc[products['product-group'] == product_group]
+        init_filter = init_filters(product_group)
         return render_template('products.html',
                                 iter=len(productsFilter),
                                 products=productsFilter,
-                                filter=filter,
+                                filter=init_filter,
                                 product_group=product_group,
-                                search=dict,
+                                search=filter,
+                                names=products['product-name'].tolist()
+                                )
+
+
+@app.route("/<product_group>/", methods=['GET', 'POST'])
+def filter_group(product_group):
+
+    if request.method == 'GET':
+        # Transform string of dict to dict
+        filter = ast.literal_eval(request.args.get('filter'))
+
+        init_filter = init_filters(product_group)
+
+        #Get products based on filter
+        productsFilter = products.loc[products['product-group'] == product_group]
+        productsFilter = filter_items(filter, productsFilter)
+
+        return render_template('products.html',
+                                iter=len(productsFilter),
+                                products=productsFilter,
+                                filter=init_filter,
+                                product_group=product_group,
+                                search=filter,
                                 names=products['product-name'].tolist()
                                 )
     else:
-        #print('product_group', 'POST')
-        search = request.form.to_dict()
-        return redirect(url_for('filter_group',
-                                product_group=product_group,
-                                search=search)
-                        )
-
-@app.route("/<product_group>/", methods=['GET'])
-def filter_group(product_group):
-    search = request.args.to_dict()
-
-    filter = init_filters(product_group)
-
-    return render_template('products.html',
-                            iter=len(products.loc[products['product-group'] == product_group]),
-                            products=products.loc[products['product-group'] == product_group],
-                            filter=filter,
-                            product_group=product_group,
-                            search=search,
-                            names=products['product-name'].tolist()
-                            )
+        filter = request.form.to_dict()
+        return redirect(url_for("filter_group", product_group = product_group, filter = filter))
 
 
 @app.route("/<product_group>/<product_name>", methods=['GET', 'POST'])

@@ -90,14 +90,14 @@
                   <a class="list-group-item list-group-item-action">
                     <div class="row">
                       <div class="col-xs-2" style="margin-bottom:auto; margin-top:auto; margin-left:auto; margin-right:auto;">
-                        {% if products1.iloc[i]['image'] %}
+                        {% if products1.iloc[products1|length - 1 - i]['image'] %}
                           <img class="img-fluid product-img" src="{{ get_abslute_path('\\static\\', products1.iloc[0]['image']) }}" style="max-width: 150px; ">
                         {% else %}
                           <img class="img-fluid product-img" src="{{ get_abslute_path('\\static\\', 'no_image.png') }}" style="max-width: 150px; ">
                         {% endif %}
                       </div>
                       <div class="col-xs-10">
-                        <h4 class="mt-0"> {{ products1.iloc[i]['product-name'] }}</h4>
+                        <h4 class="mt-0"> {{ products1.iloc[products1|length - 1 - i]['product-name'] }}</h4>
                       </div>
                     </div>
                   </a>
@@ -160,14 +160,14 @@
                   <a class="list-group-item list-group-item-action">
                     <div class="row">
                       <div class="col-xs-2" style="margin-bottom:auto; margin-top:auto; margin-left:auto; margin-right:auto;">
-                        {% if products2.iloc[i]['image'] %}
+                        {% if products2.iloc[products2|length - 1 - i]['image'] %}
                           <img class="img-fluid product-img" src="{{ get_abslute_path('\\static\\', products2.iloc[0]['image']) }}" style="max-width: 150px; ">
                         {% else %}
                           <img class="img-fluid product-img" src="{{ get_abslute_path('\\static\\', 'no_image.png') }}" style="max-width: 150px; ">
                         {% endif %}
                       </div>
                       <div class="col-xs-5">
-                        <h4 class="mt-0"> {{ products2.iloc[i]['product-name'] }}</h4>
+                        <h4 class="mt-0"> {{ products2.iloc[products2|length - 1 - i]['product-name'] }}</h4>
                       </div>
                     </div>
                   </a>

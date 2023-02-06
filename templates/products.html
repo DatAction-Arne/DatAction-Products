@@ -4,8 +4,8 @@
 <div class="col-sm-3">
   <div class="content-section">
     <h3>Filter</h3>
-    <form method="post" action="{{ url_for('product_group', product_group=product_group, search='') }}">
-      <a href="{{ url_for('product_group', product_group=product_group, search='reset') }}" type="button" class="btn btn-danger btn-filter" style="background-color:#252FA5;border-color:#252FA5">Reset</a> &nbsp;
+    <form method="post" action="/{{product_group}}">
+      <a href="{{ url_for('product_group', product_group=product_group) }}" type="button" class="btn btn-danger btn-filter" style="background-color:#252FA5;border-color:#252FA5">Reset</a> &nbsp;
       <input role = "form" type="submit" class="btn btn-danger btn-filter" style="background-color:#252FA5;border-color:#252FA5" value="Toepassen"/>
       {% for el in filter.keys() %}
         {% if el in ['WWAN (4G)', 'GPS', 'WiFi', 'Bluetooth', 'Freezer', 'Cordless'] %}
@@ -86,26 +86,26 @@
     </form>
     <div class="list-group">
         {% for i in range(0, iter) %}
-          <a href="{{ url_for('item', product_name=products.iloc[i]['product-name'], product_group=products.iloc[i]['product-group']) }}" class="list-group-item list-group-item-action">
+          <a href="{{ url_for('item', product_name=products.iloc[iter - 1 - i]['product-name'], product_group=products.iloc[iter - 1 - i]['product-group']) }}" class="list-group-item list-group-item-action">
             <div class="row">
               <div class="col-sm-2" style="margin-bottom:auto; margin-top:auto; margin-left:auto; margin-right:auto;">
-                {% if products.iloc[i]['image'] %}
-                  <img class="img-fluid product-img" src="{{ url_for('static', filename=products.iloc[i]['image']) }}" style="max-width: 150px; ">
+                {% if products.iloc[iter - 1 - i]['image'] %}
+                  <img class="img-fluid product-img" src="{{ url_for('static', filename=products.iloc[iter - 1 - i]['image']) }}" style="max-width: 150px; ">
                 {% else %}
                   <img class="img-fluid product-img" src="/static/no_image.png" style="max-width: 150px; ">
                 {% endif %}
               </div>
               <div class="col-md-10">
-                {% if products.iloc[i]['new'] %}
-                  <h4 class="mt-0"><span class="badge bg-danger text-light">NEW</span> {{ products.iloc[i]['product-name'] }}</h4>
+                {% if products.iloc[iter - 1 - i]['new'] %}
+                  <h4 class="mt-0"><span class="badge bg-danger text-light">NEW</span> {{ products.iloc[iter - 1 - i]['product-name'] }}</h4>
                 {% else %}
-                  <h4 class="mt-0"> {{ products.iloc[i]['product-name'] }}</h4>
+                  <h4 class="mt-0"> {{ products.iloc[iter - 1 - i]['product-name'] }}</h4>
                 {% endif %}
 
 
-                    {% if products.iloc[i]['CAMERA'] %}
+                    {% if products.iloc[iter - 1 - i]['CAMERA'] %}
 
-                      {% set content = products.iloc[i]['CAMERA'] %}
+                      {% set content = products.iloc[iter - 1 - i]['CAMERA'] %}
                       <b>{{ 'CAMERA' }}</b>: &nbsp;
                       {% if 'front' in content|join(' ') %}
                         {% if 'rear' in content|join(' ') %}
@@ -119,35 +119,35 @@
                     {% endif %}
 
 
-                    {% if products.iloc[i]['WWAN'] %}
+                    {% if products.iloc[iter - 1 - i]['WWAN'] %}
                       <b>{{ 'WWAN' }}</b> &nbsp;
                     {% endif %}
 
-                    {% if products.iloc[i]['CORDLESS'] %}
+                    {% if products.iloc[iter - 1 - i]['CORDLESS'] %}
                       <b>{{ 'CORDLESS' }}</b> &nbsp;
                     {% endif %}
 
 
-                    {% if products.iloc[i]['GPS']   %}
+                    {% if products.iloc[iter - 1 - i]['GPS']   %}
                       <b>{{ 'GPS' }}</b> &nbsp;
                     {% endif %}
 
 
-                    {% if products.iloc[i]['OS']  %}
-                      {% set content = products.iloc[i]['OS'] %}
+                    {% if products.iloc[iter - 1 - i]['OS']  %}
+                      {% set content = products.iloc[iter - 1 - i]['OS'] %}
                       <b>{{ 'OS' }}</b>: &nbsp;
                       {{ (content|join(", ")).split(', 0', 1)[0] }}&nbsp;
                     {% endif %}
 
-                    {% if products.iloc[i]['PRINT MODE']  %}
-                      {% set content = products.iloc[i]['PRINT MODE'] %}
+                    {% if products.iloc[iter - 1 - i]['PRINT MODE']  %}
+                      {% set content = products.iloc[iter - 1 - i]['PRINT MODE'] %}
                       <b>{{ 'PRINT MODE' }}</b>: &nbsp;
                       {{ (content|join(", ")).split(', 0', 1)[0] }}&nbsp;
                     {% endif %}
 
 
-                    {% if products.iloc[i]['SCANNING']   %}
-                      {% set content = products.iloc[i]['SCANNING'] %}
+                    {% if products.iloc[iter - 1 - i]['SCANNING']   %}
+                      {% set content = products.iloc[iter - 1 - i]['SCANNING'] %}
                       <b>{{ 'SCANNING' }}</b>: &nbsp;
                       {% set counter = namespace(value=1) %}
                       {% for el in content %}
@@ -161,37 +161,37 @@
                     {% endif %}
 
 
-                    {% if products.iloc[i]['SEALING']   %}
-                      {% set content = products.iloc[i]['SEALING'] %}
+                    {% if products.iloc[iter - 1 - i]['SEALING']   %}
+                      {% set content = products.iloc[iter - 1 - i]['SEALING'] %}
                       <b>{{ 'SEALING' }}</b>: &nbsp;
                       {{ (content|join(", ")).split(', 0', 1)[0] }}&nbsp;
                     {% endif %}
 
 
-                    {% if products.iloc[i]['WIFI']   %}
+                    {% if products.iloc[iter - 1 - i]['WIFI']   %}
                       <b>{{ 'WIFI' }}</b> &nbsp;
                     {% endif %}
 
-                    {% if products.iloc[i]['SPEED']    %}
-                      {% set content = products.iloc[i]['SPEED'] %}
+                    {% if products.iloc[iter - 1 - i]['SPEED']    %}
+                      {% set content = products.iloc[iter - 1 - i]['SPEED'] %}
                       <b>{{ 'SPEED' }}</b>: &nbsp;
                       {{ (content|join(", ")).split(', 0', 1)[0] }}&nbsp;
                     {% endif %}
 
-                    {% if products.iloc[i]['PRINT WIDTH']   %}
-                      {% set content = products.iloc[i]['PRINT WIDTH'] %}
+                    {% if products.iloc[iter - 1 - i]['PRINT WIDTH']   %}
+                      {% set content = products.iloc[iter - 1 - i]['PRINT WIDTH'] %}
                       <b>{{ 'PRINT WIDTH' }}</b>: &nbsp;
                       {{ (content|join(", ")).split(', 0', 1)[0] }}&nbsp;
                     {% endif %}
 
-                    {% if products.iloc[i]['RESOLUTION']   %}
-                      {% set content = products.iloc[i]['RESOLUTION'] %}
+                    {% if products.iloc[iter - 1 - i]['RESOLUTION']   %}
+                      {% set content = products.iloc[iter - 1 - i]['RESOLUTION'] %}
                       <b>{{ 'RESOLUTION' }}</b>: &nbsp;
                       {{ (content|join(", ")).split(', 0', 1)[0] }}&nbsp;
                     {% endif %}
 
-                    {% if products.iloc[i]['IP RATING']   %}
-                      {% set content = products.iloc[i]['IP RATING'] %}
+                    {% if products.iloc[iter - 1 - i]['IP RATING']   %}
+                      {% set content = products.iloc[iter - 1 - i]['IP RATING'] %}
                       <b>{{ 'IP RATING' }}</b>: &nbsp;
                       {{ (content|join(", ")).split(', 0', 1)[0] }}&nbsp;
                     {% endif %}

@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="col-sm-12" style="text-align:center; padding-bottom:20px;">
-  <a href="{{ url_for('download_pdf', product_name1=product_name1, product_name2=product_name2) }}" class="btn btn-danger " target="_blank" style="width:300px;">Exporteer PDF</a>
+  <a href="{{ url_for('download_pdf', product_name1=product_name1, product_name2=product_name2) }}" class="btn btn-danger " target="_blank" style="width:300px;background-color:#252FA5;border-color:#252FA5">Exporteer PDF</a>
 </div>
 <div class="col-sm-6">
   <form action="{{ url_for('compare', product_name1='search=', product_name2=product_name2) }}" method="post" autocomplete="off" >
@@ -89,20 +89,20 @@
   {% else %}
   <div class="list-group">
       {% for i in range(0, products1|length) %}
-        <a href="{{ url_for('compare', product_name1=products1.iloc[i]['product-name'], product_name2=product_name2) }}" class="list-group-item list-group-item-action">
+        <a href="{{ url_for('compare', product_name1=products1.iloc[products1|length - 1 - i]['product-name'], product_name2=product_name2) }}" class="list-group-item list-group-item-action">
           <div class="row">
             <div class="col-sm-2" style="margin-bottom:auto; margin-top:auto; margin-left:auto; margin-right:auto;">
-              {% if products1.iloc[i]['image'] %}
-                <img class="img-fluid product-img" src="{{ url_for('static', filename=products1.iloc[i]['image']) }}" style="max-width: 150px; ">
+              {% if products1.iloc[products1|length - 1 - i]['image'] %}
+                <img class="img-fluid product-img" src="{{ url_for('static', filename=products1.iloc[products1|length - 1 - i]['image']) }}" style="max-width: 150px; ">
               {% else %}
                 <img class="img-fluid product-img" src="/static/no_image.png" style="max-width: 150px; ">
               {% endif %}
             </div>
             <div class="col-md-10">
-              {% if products1.iloc[i]['new'] %}
-                <h4 class="mt-0"><span class="badge bg-danger text-light">NEW</span> {{ products1.iloc[i]['product-name'] }}</h4>
+              {% if products1.iloc[products1|length - 1 - i]['new'] %}
+                <h4 class="mt-0"><span class="badge bg-danger text-light">NEW</span> {{ products1.iloc[products1|length - 1 - i]['product-name'] }}</h4>
               {% else %}
-                <h4 class="mt-0"> {{ products1.iloc[i]['product-name'] }}</h4>
+                <h4 class="mt-0"> {{ products1.iloc[products1|length - 1 - i]['product-name'] }}</h4>
               {% endif %}
 
             </div>
@@ -201,20 +201,20 @@
   {% else %}
   <div class="list-group">
       {% for i in range(0, products2|length) %}
-        <a href="{{ url_for('compare', product_name1=product_name1, product_name2=products2.iloc[i]['product-name']) }}" class="list-group-item list-group-item-action">
+        <a href="{{ url_for('compare', product_name1=product_name1, product_name2=products2.iloc[products2|length - 1 - i]['product-name']) }}" class="list-group-item list-group-item-action">
           <div class="row">
             <div class="col-sm-2" style="margin-bottom:auto; margin-top:auto; margin-left:auto; margin-right:auto;">
-              {% if products2.iloc[i]['image'] %}
-                <img class="img-fluid product-img" src="{{ url_for('static', filename=products2.iloc[i]['image']) }}" style="max-width: 150px; ">
+              {% if products2.iloc[products2|length - 1 - i]['image'] %}
+                <img class="img-fluid product-img" src="{{ url_for('static', filename=products2.iloc[products2|length - 1 - i]['image']) }}" style="max-width: 150px; ">
               {% else %}
                 <img class="img-fluid product-img" src="/static/no_image.png" style="max-width: 150px; ">
               {% endif %}
             </div>
             <div class="col-md-10">
-              {% if products2.iloc[i]['new'] %}
-                <h4 class="mt-0"><span class="badge bg-danger text-light">NEW</span> {{ products2.iloc[i]['product-name'] }}</h4>
+              {% if products2.iloc[products2|length - 1 - i]['new'] %}
+                <h4 class="mt-0"><span class="badge bg-danger text-light">NEW</span> {{ products2.iloc[products2|length - 1 - i]['product-name'] }}</h4>
               {% else %}
-                <h4 class="mt-0"> {{ products2.iloc[i]['product-name'] }}</h4>
+                <h4 class="mt-0"> {{ products2.iloc[products2|length - 1 - i]['product-name'] }}</h4>
               {% endif %}
 
             </div>
