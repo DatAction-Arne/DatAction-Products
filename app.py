@@ -9,18 +9,19 @@ import pdfkit
 from flask import Flask, render_template, url_for, request, redirect, session, make_response, send_from_directory
 
 subgroups = [
-            { 'product' : "BARCODESCANNERS", 'image' : 'static/barcodescanners.jpg', 'url' : 'barcodescanners' },
-            { 'product' : "HANDTERMINALS", 'image' : 'static/handterminal.jpg', 'url' : 'handterminals' },
-            { 'product' : "HEFTRUCK TERMINALS", 'image' : 'static/heftruckterminal.jpg', 'url' : 'heftruck-terminals' },
-            { 'product' : "RFID", 'image' : 'static/rfid.jpg', 'url' : 'rfid' },
-            ##{ 'product' : "VOICE PICKING", 'image' : 'static/voice.jpg', 'url' : 'voice' },
-            { 'product' : "WEARABLE COMPUTERS", 'image' : 'static/wearablecomputer.jpg', 'url' : 'wearable-computers' },
+            { 'product' : "Handterminals", 'image' : 'static/handterminal.jpg', 'url' : 'handterminals' },
+            { 'product' : "Truckterminals", 'image' : 'static/heftruckterminal.jpg', 'url' : 'heftruck-terminals' },
+            { 'product' : "Wearable computers & scanners", 'image' : 'static/wearablecomputer.jpg', 'url' : 'wearable-computers' },
+
+            { 'product' : "Handheld computers (PDA)", 'image' : 'static/pda.jpg', 'url' : 'pda' },
+            { 'product' : "Barcodescanners", 'image' : 'static/barcodescanners.jpg', 'url' : 'barcodescanners' },
             ##{ 'product' : "FIXED SCANNERS", 'image' : 'static/scanner.png', 'url' : 'fixed-scanners' },
-            { 'product' : "PRINTERS", 'image' : 'static/printer.jpg', 'url' : 'printers' },
-            { 'product' : "TABLETS", 'image' : 'static/tablet.jpg', 'url' : 'tablets' },
-            { 'product' : "RUGGED LAPTOPS", 'image' : 'static/ruggedlaptop.jpg', 'url' : 'rugged-laptops' },
-            { 'product' : "PDA'S", 'image' : 'static/pda.jpg', 'url' : 'pda' },
+            { 'product' : "Printers", 'image' : 'static/printer.jpg', 'url' : 'printers' },
+            ##{ 'product' : "VOICE PICKING", 'image' : 'static/voice.jpg', 'url' : 'voice' },
+            { 'product' : "Robuuste tablet PC's", 'image' : 'static/tablet.jpg', 'url' : 'tablets' },
+            { 'product' : "Rugged laptop", 'image' : 'static/ruggedlaptop.jpg', 'url' : 'rugged-laptops' },
             ##{ 'product' : "TOUCH PC'S", 'image' : 'static/touchpc.png', 'url' : 'touch-pc' },
+            { 'product' : "RFID", 'image' : 'static/rfid.jpg', 'url' : 'rfid' },
             ]
 
 # Formatting
