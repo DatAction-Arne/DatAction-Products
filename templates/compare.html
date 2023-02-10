@@ -1,14 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="col-sm-12" style="text-align:center; padding-bottom:20px;">
-  <a href="{{ url_for('download_pdf', product_name1=product_name1, product_name2=product_name2) }}" class="btn btn-danger " target="_blank" style="width:300px;background-color:#252FA5;border-color:#252FA5">Exporteer PDF</a>
+<div class="col-sm-12 d-flex justify-content-center" style="text-align:center; padding-bottom:20px;">
+  <a href="{{ url_for('download_pdf', product_name1=product_name1, product_name2=product_name2) }}" class="btn btn-custom" target="_blank" style="width:300px;">Exporteer PDF</a>
 </div>
 <div class="col-sm-6">
   <form action="{{ url_for('compare', product_name1='search=', product_name2=product_name2) }}" method="post" autocomplete="off" >
     <div class="input-group" style="padding-bottom:20px;">
-        <div class="input-group-btn">
-          <button id="searchButton" type="submit" class="btn btn-danger" style="background-color:#252FA5;border-color:#252FA5"> <i class="fa fa-search"> </i> </button>
-        </div>
+        <button id="searchButton" type="submit" class="btn btn-custom"> <i class="fa fa-search" style="color:white"> </i> </button>
         <input role="form" name="searchInput1" id="autocomplete" type="text" placeholder="Zoeken..." aria-describedby="button-addon8" class="form-control">
 
       </div>
@@ -44,10 +42,6 @@
             {% endif %}
             <br/>
             <div class="container-fluid ">
-              <button type="button" class="btn btn-light" disabled>
-
-                <i class="heart fa fa-heart-o centered" style="display:flex; justify-content:center;"></i>
-              </button>
 
             </div>
         </div>
@@ -60,27 +54,27 @@
 
 
 
-        <div class="card border-0">
-          <table class="table" border="2" cellspacing="0" cellpadding="5">
-            {% for i in range(0, l|int) %}
+          <div class='col-md-12'>
+            <div class="card " style="border: 1px solid #C8CFD4;padding:0px">
+              <table class="table" border="0" cellspacing="0" cellpadding="5" style="margin:0px">
+              {% for i in range(0, l|int) %}
 
-              <tr>
-                <td width="35%"><b>{{ specs1.columns[i] }}</b></td>
-                <td>
-                  {% for content in specs1[specs1.columns[i]].dropna() %}
-                    {% for el in content %}
-                      {% if el != 0 %}
-                        {{ el }}<br/>
-                      {% endif %}
+                <tr>
+                  <td width="35%"><b>{{ specs1.columns[i] }}</b></td>
+                  <td>
+                    {% for content in specs1[specs1.columns[i]].dropna() %}
+                      {% for el in content %}
+                        {% if el != 0 %}
+                          {{ el }}<br/>
+                        {% endif %}
+                      {% endfor %}
                     {% endfor %}
-                  {% endfor %}
 
-                </td>
-              </tr>
-            {% endfor %}
-          </table>
-          <br/>
-
+                  </td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
         </div>
 
 
@@ -118,9 +112,7 @@
 <div class="col-sm-6">
   <form action="{{ url_for('compare', product_name1=product_name1, product_name2='search=') }}" method="post" autocomplete="off" >
     <div class="input-group" style="padding-bottom:20px;">
-        <div class="input-group-btn">
-          <button id="searchButton2" type="submit" class="btn btn-danger" style="background-color:#252FA5;border-color:#252FA5"> <i class="fa fa-search"> </i> </button>
-        </div>
+        <button id="searchButton2" type="submit" class="btn btn-custom" > <i class="fa fa-search" style="color:white"> </i> </button>
         <input role="form" name="searchInput2" id="autocomplete2" type="text" placeholder="Zoeken..." aria-describedby="button-addon8" class="form-control">
 
       </div>
@@ -156,10 +148,6 @@
             {% endif %}
             <br/>
             <div class="container-fluid ">
-              <button type="button" class="btn btn-light" disabled>
-
-                <i class="heart fa fa-heart-o centered" style="display:flex; justify-content:center;"></i>
-              </button>
 
             </div>
         </div>
@@ -172,14 +160,15 @@
 
 
 
-        <div class="card border-0">
-          <table class="table" border="2" cellspacing="0" cellpadding="5">
+        <div class='col-md-12'>
+          <div class="card " style="border: 1px solid #C8CFD4;padding:0px">
+            <table class="table" border="0" cellspacing="0" cellpadding="5" style="margin:0px">
             {% for i in range(0, l|int) %}
 
               <tr>
-                <td width="35%"><b>{{ specs2.columns[i] }}</b></td>
+                <td width="35%"><b>{{ specs1.columns[i] }}</b></td>
                 <td>
-                  {% for content in specs2[specs2.columns[i]].dropna() %}
+                  {% for content in specs1[specs1.columns[i]].dropna() %}
                     {% for el in content %}
                       {% if el != 0 %}
                         {{ el }}<br/>
@@ -191,9 +180,8 @@
               </tr>
             {% endfor %}
           </table>
-          <br/>
-
         </div>
+      </div>
 
 
       </div>

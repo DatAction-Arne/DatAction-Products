@@ -114,7 +114,7 @@ def scrapingZebra():
                         img = Image.open(requests.get(baseURL + image, stream = True).raw)
                         imgType = img.format
                         imgName = name.replace('/','-').replace("*", "")
-                        img.save(f'static/{imgName}.{imgType}')
+                        img.save(f'img/{imgName}.{imgType}')
                         imgDict[name] = imgName + '.' + imgType
 
                         #### Save all product data ####
@@ -159,7 +159,7 @@ def scrapingZebra():
                             img = Image.open(requests.get(baseURL + image, stream = True).raw)
                             imgType = img.format
                             imgName = name.replace('/','-')
-                            img.save(f'static/{imgName}.{imgType}')
+                            img.save(f'img/{imgName}.{imgType}')
                             imgDict[name] = imgName + '.' + imgType
                         except:
                             imgDict[name] = None

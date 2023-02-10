@@ -1,17 +1,19 @@
 {% extends "layout.html" %}
 
 {% block filter %}
-<div class="col-sm-3">
+<div class="col-lg-3">
   <div class="content-section">
     <h3>Filter</h3>
     <form method="post" action="/{{product_group}}">
-      <a href="{{ url_for('product_group', product_group=product_group) }}" type="button" class="btn btn-danger btn-filter" style="background-color:#252FA5;border-color:#252FA5">Reset</a> &nbsp;
-      <input role = "form" type="submit" class="btn btn-danger btn-filter" style="background-color:#252FA5;border-color:#252FA5" value="Toepassen"/>
+      <div class="d-flex justify-content-center">
+        <a href="{{ url_for('product_group', product_group=product_group) }}" type="button" class="btn btn-filter ">Reset</a>
+        <input role = "form" type="submit" class="btn btn-filter" value="Toepassen"/>
+      </div>
       {% for el in filter.keys() %}
         {% if el in ['WWAN (4G)', 'GPS', 'WiFi', 'Bluetooth', 'Freezer', 'Cordless'] %}
         <div>
           <br/>
-          <a data-toggle="collapse" href="#{{el|replace(' ', '')|replace('(','')|replace(')','')}}" aria-expanded="false" aria-controls="{{el|replace(' ', '')|replace('(','')|replace(')','')}}" style="color: black">
+          <a data-bs-toggle="collapse" href="#{{el|replace(' ', '')|replace('(','')|replace(')','')}}" aria-expanded="false" aria-controls="{{el|replace(' ', '')|replace('(','')|replace(')','')}}" style="color: black">
           <h6 class="p-1 border-bottom">{{ el }}</h6></a>
             {% for c in filter[el] %}
             <div class="form-check collapse multi-collapse" id="{{el|replace(' ', '')|replace('(','')|replace(')','')}}">
@@ -37,7 +39,7 @@
         {% elif el in ['Printbreedte', 'Mediabreedte', 'Snelheid'] %}
         <div>
           <br/>
-          <a data-toggle="collapse" href="#{{el|replace(' ', '')}}" aria-expanded="false" aria-controls="{{el|replace(' ', '')}}" style="color: black">
+          <a data-bs-toggle="collapse" href="#{{el|replace(' ', '')}}" aria-expanded="false" aria-controls="{{el|replace(' ', '')}}" style="color: black">
           <h6 class="p-1 border-bottom">{{ el }}</h6></a>
             {% for c in filter[el] %}
             <div class="collapse multi-collapse" id="{{el|replace(' ', '')}}">
@@ -52,7 +54,7 @@
         {% else %}
         <div>
           <br/>
-          <a data-toggle="collapse" href="#{{el|replace(' ', '')}}" aria-expanded="false" aria-controls="{{el|replace(' ', '')}}" style="color: black">
+          <a data-bs-toggle="collapse" href="#{{el|replace(' ', '')}}" aria-expanded="false" aria-controls="{{el|replace(' ', '')}}" style="color: black">
           <h6 class="p-1 border-bottom">{{ el }}</h6></a>
             {% for c in filter[el] %}
             <div class="form-check collapse multi-collapse" id="{{el|replace(' ', '')}}">
@@ -74,12 +76,10 @@
 {% endblock filter %}
 
 {% block content %}
-<div class="col-sm-9">
+<div class="col-lg-9">
     <form action="{{ url_for('home') }}" method="post" autocomplete="off" >
       <div class="input-group" style="padding-bottom:20px;">
-          <div class="input-group-btn">
-            <button id="searchButton" type="submit" class="btn btn-danger" style="background-color:#252FA5;border-color:#252FA5"> <i class="fa fa-search"> </i> </button>
-          </div>
+          <button id="searchButton" type="submit" class="btn btn-custom" > <i class="fa fa-search" style="color:white"> </i> </button>
           <input role="form" name="searchInput" id="autocomplete" type="text" placeholder="Zoeken..." aria-describedby="button-addon8" class="form-control">
 
         </div>

@@ -194,7 +194,7 @@ def scrapingJT(products):
                         dictSpecs['WIFI'] = ['Supported']
 
                     # WWAN
-                    elif ('4g' in spec.lower() and not '4gb' in spec.lower()) or 'sim' in spec.lower() or 'esim' in spec.lower():
+                    elif ('4g' in spec.lower() and not '4gb' in spec.lower()) or ('sim' in spec.lower() and not 'zsim' in spec.lower() and not 'simple' in spec.lower()):
                         dictSpecs['WWAN'] = ['Supported']
 
                     # NFC
@@ -279,7 +279,7 @@ def scrapingJT(products):
                         else:
                             if 'OS' in dictSpecs and 'Android' not in dictSpecs['OS']: dictSpecs['OS'].append('Android')
                             elif 'OS' not in dictSpecs: dictSpecs['OS'] = ['Android']
-                    elif (re.search(r'\b' + 'win' + r'\b', spec.lower()) or re.search(r'\b' + 'windows' + r'\b', spec.lower())) and not 'win.' in spec.lower():
+                    elif (re.search(r'\b' + 'win' + r'\b', spec.lower()) or re.search(r'\b' + 'windows' + r'\b', spec.lower())):
                         match = re.findall('\d{3,}', spec)
                         if match:
                             for el in match:

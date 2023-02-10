@@ -3,9 +3,7 @@
 <div class="col-sm-12">
     <form action="{{ url_for('home') }}" method="post" autocomplete="off" >
       <div class="input-group" style="padding-bottom:20px;">
-          <div class="input-group-btn">
-            <button id="searchButton" type="submit" class="btn btn-danger" style="background-color:#252FA5;border-color:#252FA5"> <i class="fa fa-search"> </i> </button>
-          </div>
+          <button id="searchButton" type="submit" class="btn btn-custom"> <i class="fa fa-search" style="color:white"> </i> </button>
           <input role="form" name="searchInput" id="autocomplete" type="text" placeholder="Zoeken..." aria-describedby="button-addon8" class="form-control">
 
         </div>
@@ -40,71 +38,64 @@
             {% endif %}
             <br/>
             <div class="container-fluid ">
-              <button type="button" class="btn btn-light" disabled>
-
-                <i class="heart fa fa-heart-o centered" style="display:flex; justify-content:center;"></i>
-              </button>
-              <a href="{{ url_for('compare', product_name1=item.iloc[0]['product-name'], product_name2=item.iloc[0]['product-group']) }}" class="btn btn-danger " style="min-width:60px;max-width:120px;background-color:#252FA5;border-color:#252FA5">Vergelijk</a>
+              <a href="{{ url_for('compare', product_name1=item.iloc[0]['product-name'], product_name2=item.iloc[0]['product-group']) }}" class="btn btn-custom" style="min-width:60px;max-width:120px;">Vergelijk</a>
 
             </div>
         </div>
       </div>
       <br/>
       <br/>
-      <div class= "card-columns container-fluid" >
+      <div class= "row" style="margin-left:10px;margin-right:10px;margin-bottom:20px">
         {% set l = (specs.columns|length)/2 %}
         {% set l = l|round%}
 
 
+        <div class='col-md-6'>
+          <div class="card " style="border: 1px solid #C8CFD4;padding:0px">
+            <table class="table" border="0" cellspacing="0" cellpadding="5" style="margin:0px">
+              {% for i in range(0, l|int) %}
 
-        <div class="card border-0">
-          <table class="table" border="2" cellspacing="0" cellpadding="5">
-            {% for i in range(0, l|int) %}
-
-              <tr>
-                <td width="35%"><b>{{ specs.columns[i] }}</b></td>
-                <td>
-                  {% for content in specs[specs.columns[i]].dropna() %}
-                    {% for el in content %}
-                      {% if el != 0 %}
-                        {{ el }}<br/>
-                      {% endif %}
+                <tr>
+                  <td width="35%"><b>{{ specs.columns[i] }}</b></td>
+                  <td>
+                    {% for content in specs[specs.columns[i]].dropna() %}
+                      {% for el in content %}
+                        {% if el != 0 %}
+                          {{ el }}<br/>
+                        {% endif %}
+                      {% endfor %}
                     {% endfor %}
-                  {% endfor %}
 
-                </td>
-              </tr>
-            {% endfor %}
-          </table>
-          <br/>
-
+                  </td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
         </div>
 
 
 
-
-        <div class="card border-0">
-          <table class="table" border="2" cellspacing="0" cellpadding="5">
-            {% for i in range(l|int, specs.columns|length) %}
-              <tr>
-                <td width="35%"><b>{{ specs.columns[i] }}</b></td>
-                <td>
-                  {% for content in specs[specs.columns[i]].dropna() %}
-                    {% for el in content %}
-                      {% if el != 0 %}
-                        {{ el }}<br/>
-                      {% endif %}
+        <div class='col-md-6'>
+          <div class="card " style="border: 1px solid #C8CFD4">
+            <table class="table" border="0" cellspacing="0" cellpadding="5" style="margin:0px">
+              {% for i in range(l|int, specs.columns|length) %}
+                <tr>
+                  <td width="35%"><b>{{ specs.columns[i] }}</b></td>
+                  <td>
+                    {% for content in specs[specs.columns[i]].dropna() %}
+                      {% for el in content %}
+                        {% if el != 0 %}
+                          {{ el }}<br/>
+                        {% endif %}
+                      {% endfor %}
                     {% endfor %}
-                  {% endfor %}
 
-                </td>
-              </tr>
-            {% endfor %}
-          </table>
-          <br/>
-
+                  </td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
         </div>
-
 
       </div>
     </div>

@@ -14,7 +14,7 @@ h1, h2, h3, h4, h5, h6 {
 
 
 .bg-steel {
-  background-color: #252FA5;
+  background-color: #20295b;
 }
 
 .site-header .navbar-nav .nav-link {
@@ -115,15 +115,52 @@ a.article-title:hover {
     word-wrap: break-word;
 }
 
-@media (min-width: 576px) {
-    .card-columns {
-        column-count: 1;
-    }
+.btn-filter {
+  background-color:#2630a5;
+  border-color:#2630a5;
+  color:white;
+  margin-top: 5px;
+  margin-bottom:5px;
+  text-align:center;
+  vertical-align:middle;
+  padding-left:0px;
+  padding-right:0px;
+  width:47%;
+  margin:6px;
+}
+
+.btn-filter:hover {
+  color: #fff;
+  background-color:#20295b;
+  border-color:#20295b;
+}
+
+
+.btn-custom {
+  background-color:#2630a5;
+  border-color:#2630a5;
+  color:white;
+  width:fit-content;
+  text-align:center;
+  display:table-cell;
+  vertical-align:middle;
+}
+
+.btn-custom:hover {
+  color: #fff;
+  background-color:#20295b;
+  border-color:#20295b;
 }
 
 @media (min-width: 768px) {
+    .btn-filter {
+        width: 100%;
+    }
+}
+
+@media (min-width: 800px) {
     .card-columns {
-        column-count: 2;
+        column-count: 1;
     }
 }
 
@@ -137,17 +174,8 @@ a.article-title:hover {
     .card-columns {
         column-count: 2;
     }
-}
-
-@media (min-width: 992px) {
     .btn-filter {
         width: 45%;
-    }
-}
-
-@media (max-width: 992px) {
-    .btn-filter {
-        width: 100%;
     }
 }
 

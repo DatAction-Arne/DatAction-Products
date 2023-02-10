@@ -11,7 +11,7 @@ from flask import Flask, render_template, url_for, request, redirect, session, m
 subgroups = [
             { 'product' : "Handterminals", 'image' : 'static/handterminal.jpg', 'url' : 'handterminals' },
             { 'product' : "Truckterminals", 'image' : 'static/heftruckterminal.jpg', 'url' : 'heftruck-terminals' },
-            { 'product' : "Wearable computers & scanners", 'image' : 'static/wearablecomputer.jpg', 'url' : 'wearable-computers' },
+            { 'product' : "Wearables", 'image' : 'static/wearablecomputer.jpg', 'url' : 'wearable-computers' },
 
             { 'product' : "Handheld computers (PDA)", 'image' : 'static/pda.jpg', 'url' : 'pda' },
             { 'product' : "Barcodescanners", 'image' : 'static/barcodescanners.jpg', 'url' : 'barcodescanners' },
@@ -204,7 +204,7 @@ def search():
 @app.route("/vergelijk/<product_name1>/<product_name2>", methods=['GET', 'POST'])
 def compare(product_name1, product_name2):
     if request.method == 'GET':
-        #print(product_name1, product_name2)
+        print(product_name1, product_name2)
         item1, specs1, product_name1, productComp1, item2, specs2, product_name2, productComp2 = compare_params(product_name1, product_name2)
 
         return render_template('compare.html',
@@ -328,7 +328,7 @@ def filter_items(dict, productsFilter):
                 list3.append('front') if key == 'Voor' else list3.append('rear')
             elif key in ['Android', 'Windows']:
                 list4.append(key)
-            elif key in ['IP42', 'IP54', 'IP64', 'IP65', 'IP67', 'IP68']:
+            elif key in ['IP40', 'IP41', 'IP42', 'IP52', 'IP54', 'IP64', 'IP65', 'IP67', 'IP68']:
                 list5.append(key)
             elif key == 'Cordless':
                 productsFilter = productsFilter.loc[productsFilter['CORDLESS'] != 0] if dict[key] == 'Y' else productsFilter.loc[productsFilter['CORDLESS'] == 0]
@@ -340,13 +340,15 @@ def filter_items(dict, productsFilter):
                     productsFilter = productsFilter.loc[productsFilter['BLUETOOTH'] != 0] if dict[key] == 'Y' else productsFilter.loc[productsFilter['BLUETOOTH'] == 0]
             elif key == 'Freezer':
                     productsFilter = productsFilter.loc[productsFilter['FREEZER MODEL'] != 0] if dict[key] == 'Y' else productsFilter.loc[productsFilter['FREEZER MODEL'] == 0]
-            elif key in ['Numeriek', 'Alphanumeriek', 'Functioneel numeriek']:
+            elif key in ['Numeriek', 'Alphanumeriek', 'Functioneel numeriek', 'qwertz', 'fr-layout', 'us-layout', 'uk-layout', 'fdns-layout', 'qwerty', 'azerty']:
                 if key == 'Numeriek':
                     list6.append('numeric')
                 elif key == 'Alphanumeriek':
                     list6.append('alphanumeric')
-                else:
+                elif key == 'Functioneel numeriek':
                     list6.append('functional numeric')
+                else:
+                    list6.append(key)
             elif key in ['Thermal transfer', 'Direct thermal']:
                 list7.append(key.lower())
             elif key in ['203 dpi', '300 dpi', '406 dpi', '600 dpi']:
@@ -391,6 +393,22 @@ def filter_items(dict, productsFilter):
                         indexList.append(index)
                     elif ('numeric' in list6) and any([s for s in row['KEYPAD'] if 'numeric' in str(s)]):
                         indexList.append(index)
+                    elif ('numeric' in list6) and any([s for s in row['KEYPAD'] if 'numeric' in str(s)]):
+                        indexList.append(index)
+                    elif ('fr-layout' in list6) and any([s for s in row['KEYPAD'] if 'fr-layout' in str(s)]):
+                        indexList.append(index)
+                    elif ('us-layout' in list6) and any([s for s in row['KEYPAD'] if 'us-layout' in str(s)]):
+                        indexList.append(index)
+                    elif ('uk-layout' in list6) and any([s for s in row['KEYPAD'] if 'uk-layout' in str(s)]):
+                        indexList.append(index)
+                    elif ('fdns-layout' in list6) and any([s for s in row['KEYPAD'] if 'fdns-layout' in str(s)]):
+                        indexList.append(index)
+                    elif ('azerty' in list6) and any([s for s in row['KEYPAD'] if 'azerty' in str(s)]):
+                        indexList.append(index)
+                    elif ('qwertz' in list6) and any([s for s in row['KEYPAD'] if 'qwertz' in str(s)]):
+                        indexList.append(index)
+                    elif ('qwerty' in list6) and any([s for s in row['KEYPAD'] if 'qwerty' in str(s)]):
+                        indexList.append(index)
             productsFilter = productsFilter.loc[indexList]
         if list7:
             indexList = []
@@ -414,6 +432,12 @@ def filter_items(dict, productsFilter):
 
 
 def init_filters(product_group):
+    pd.set_option('display.max_columns', None)
+    pd.set_option('display.width', None)
+    pd.set_option('display.max_colwidth', None)
+    filteredProducts = products.loc[products['product-group'] == product_group]
+
+
     if (product_group == 'handterminals' or
        product_group == 'pda' or
        product_group == 'heftruck-terminals' or
@@ -425,7 +449,7 @@ def init_filters(product_group):
         filter = {'Leverancier' : ['Datalogic', 'Getac', 'Honeywell', 'M3', 'Panasonic', 'Point Mobile', 'ProGlove', 'Zebra'],
                   'Scan Engine' : ['2D standard range imager', '2D medium range imager', '2D extended range imager', '2D near/far imager', '2D wide angle imager', '2D flex range imager', '1D standard range imager', '1D medium range imager', '1D extended range imager',
                                    'DPM Support', 'Digimarc Support'],
-                  'Toetsenbord' : ['Numeriek', 'Alphanumeriek', 'Functioneel numeriek'],
+                  'Toetsenbord' : ['Numeriek', 'Alphanumeriek', 'Functioneel numeriek', 'qwertz', 'fr-layout', 'us-layout', 'uk-layout', 'fdns-layout', 'qwerty', 'azerty'],
                   'OS' : ['Android', 'Windows'],
                   'Freezer' : ['Ja', 'Neen'],
                   'WiFi' : ['Ja', 'Neen'],
@@ -434,6 +458,27 @@ def init_filters(product_group):
                   'Camera' : ['Voor', 'Achter'],
                   'IP Rating' : ['IP42', 'IP54', 'IP64', 'IP65', 'IP67', 'IP68']
                   }
+
+        for key in filter.keys():
+            keyNew = key.replace('Leverancier', 'supplier').replace('Scan Engine', 'SCANNING').replace('Toetsenbord', 'KEYPAD').replace('IP Rating', 'IP RATING').replace('Freezer', 'FREEZER MODEL').replace('WiFi', 'WIFI').replace('WWAN (4G)', 'WWAN').replace('Bluetooth', 'BLUETOOTH').replace('Camera', 'CAMERA')
+
+            for el in filter[key][:]:
+                elNew = el.replace('Numeriek', 'numeric').replace('Alphanumeriek', 'alphanumeric').replace('Functioneel numeriek', 'functional numeric')
+                if elNew == 'Ja':
+                    elNew = 'Supported'
+                if elNew == 'Neen':
+                    elNew = '0'
+                if elNew == 'Voor':
+                    elNew = 'front'
+                if elNew == 'Achter':
+                    elNew = 'rear'
+                if elNew == 'Windows':
+                    elNew = 'Win'
+
+                if (elNew.lower().replace(' ', '') not in filteredProducts.loc[:, keyNew].to_string().lower().replace(' ', '')):
+                    print(keyNew, elNew, filteredProducts.loc[:, keyNew].to_string())
+                    filter[key].remove(el)
+
     elif product_group == 'printers':
         filter = {'Leverancier' : ['Honeywell', 'Zebra'],
                   'Print modus' : ['Thermal transfer', 'Direct thermal'],
@@ -446,6 +491,24 @@ def init_filters(product_group):
                   'Bluetooth' : ['Ja', 'Neen'],
                   'IP Rating' : ['IP54', 'IP64', 'IP65', 'IP67', 'IP68']
                   }
+        for key in filter.keys():
+            keyNew = key.replace('Leverancier', 'supplier').replace('Print modus', 'PRINT MODE').replace('Resolutie', 'RESOLUTION').replace('IP Rating', 'IP RATING').replace('Freezer', 'FREEZER MODEL').replace('WiFi', 'WIFI').replace('WWAN (4G)', 'WWAN').replace('Bluetooth', 'BLUETOOTH').replace('Camera', 'CAMERA')
+
+            for el in filter[key][:]:
+                elNew = el.replace('Numeriek', 'numeric').replace('Alphanumeriek', 'alphanumeric').replace('Functioneel numeriek', 'functional numeric')
+                if elNew == 'Ja':
+                    elNew = 'Supported'
+                if elNew == 'Neen':
+                    elNew = '0'
+                if elNew == 'Voor':
+                    elNew = 'front'
+                if elNew == 'Achter':
+                    elNew = 'rear'
+
+                if (elNew.lower().replace(' ', '') not in filteredProducts.loc[:, keyNew].to_string().lower().replace(' ', '')):
+                    print(keyNew, elNew.lower().replace(' ', ''), filteredProducts.loc[:, keyNew].to_string())
+                    filter[key].remove(el)
+
     elif product_group == 'barcodescanners':
         filter = {'Leverancier' : ['Datalogic', 'Honeywell', 'M3', 'Panasonic', 'ProGlove', 'Zebra'],
                   'Scan Engine' : ['2D standard range imager', '2D medium range imager', '2D extended range imager', '2D near/far imager', '2D wide angle imager', '2D flex range imager', '1D standard range imager', '1D medium range imager', '1D extended range imager',
@@ -454,13 +517,26 @@ def init_filters(product_group):
                   'WiFi' : ['Ja', 'Neen'],
                   'WWAN (4G)' : ['Ja', 'Neen'],
                   'Bluetooth' : ['Ja', 'Neen'],
-                  'IP Rating' : ['IP54', 'IP64', 'IP65', 'IP67', 'IP68']
+                  'IP Rating' : ['IP40', 'IP41', 'IP42', 'IP52', 'IP54', 'IP64', 'IP65', 'IP67', 'IP68']
                   }
+        for key in filter.keys():
+            keyNew = key.replace('Leverancier', 'supplier').replace('Scan Engine', 'SCANNING').replace('IP Rating', 'IP RATING').replace('WiFi', 'WIFI').replace('WWAN (4G)', 'WWAN').replace('Bluetooth', 'BLUETOOTH').replace('Cordless', 'CORDLESS')
+
+            for el in filter[key][:]:
+                elNew = el.replace('Numeriek', 'numeric').replace('Alphanumeriek', 'alphanumeric').replace('Functioneel numeriek', 'functional numeric')
+                if el == 'Ja':
+                    elNew = 'Supported'
+                if el == 'Neen':
+                    elNew = '0'
+
+                if (elNew.lower().replace(' ', '') not in filteredProducts.loc[:, keyNew].to_string().lower().replace(' ', '')):
+                    print(keyNew, elNew, filteredProducts.loc[:, keyNew].to_string())
+                    filter[key].remove(el)
     else:
         filter = {'Leverancier' : ['Datalogic', 'Getac', 'Honeywell', 'M3', 'Panasonic', 'Point Mobile', 'ProGlove', 'Zebra'],
                   'Scan Engine' : ['2D standard range imager', '2D medium range imager', '2D extended range imager', '2D near/far imager', '2D wide angle imager', '2D flex range imager', '1D standard range imager', '1D medium range imager', '1D extended range imager',
                                    'DPM Support', 'Digimarc Support'],
-                  'Toetsenbord' : ['Numeriek', 'Alphanumeriek', 'Functioneel numeriek'],
+                  'Toetsenbord' : ['Numeriek', 'Alphanumeriek', 'Functioneel numeriek', 'qwertz'],
                   'OS' : ['Android', 'Windows'],
                   'Freezer' : ['Ja', 'Neen'],
                   'WiFi' : ['Ja', 'Neen'],
@@ -469,6 +545,26 @@ def init_filters(product_group):
                   'Camera' : ['Voor', 'Achter'],
                   'IP Rating' : ['IP42', 'IP54', 'IP64', 'IP65', 'IP67', 'IP68']
                   }
+
+        for key in filter.keys():
+            keyNew = key.replace('Leverancier', 'supplier').replace('Scan Engine', 'SCANNING').replace('Toetsenbord', 'KEYPAD').replace('IP Rating', 'IP RATING').replace('Freezer', 'FREEZER MODEL').replace('WiFi', 'WIFI').replace('WWAN (4G)', 'WWAN').replace('Bluetooth', 'BLUETOOTH').replace('Camera', 'CAMERA')
+
+            for el in filter[key][:]:
+                elNew = el.replace('Numeriek', 'numeric').replace('Alphanumeriek', 'alphanumeric').replace('Functioneel numeriek', 'functional numeric')
+                if elNew == 'Ja':
+                    elNew = 'Supported'
+                if elNew == 'Neen':
+                    elNew = '0'
+                if elNew == 'Voor':
+                    elNew = 'front'
+                if elNew == 'Achter':
+                    elNew = 'rear'
+                if elNew == 'Windows':
+                    elNew = 'Win'
+
+                if (elNew.lower().replace(' ', '') not in filteredProducts.loc[:, keyNew].to_string().lower().replace(' ', '')):
+                    print(filteredProducts.loc[:, keyNew].to_string())
+                    filter[key].remove(el)
     return filter
 
 

@@ -1,71 +1,73 @@
 {%extends "layout.html" %}
 {% block content %}
-<div class="col-sm-9">
+<div class="col-sm-12">
     <form action="{{ url_for('home') }}" method="post" autocomplete="off" >
       <div class="input-group" style="padding-bottom:10px;">
-          <div class="input-group-btn">
-            <button id="searchButton" type="submit" class="btn btn-danger" style="background-color:#252FA5;border-color:#252FA5"> <i class="fa fa-search"> </i> </button>
-          </div>
+          <button id="searchButton" type="submit" class="btn btn-custom"> <i class="fa fa-search" style="color:white"> </i> </button>
           <input role="form" name="searchInput" id="autocomplete" type="text" placeholder="Zoeken..." aria-describedby="button-addon8" class="form-control">
-
         </div>
     </form>
+
     <div class="row" style="padding-bottom: 10px;">
       {% for product in products[0:3]%}
-      <div class="col-sm-4">
-        <div class="card">
-          <img class="card-img-top" src="{{product.image}}" style="max-width:55%; margin-left:auto; margin-right:auto; padding-top:10px;" alt="Card image cap">
-          <div class="card-body" style="text-align:center; padding-top:0px;">
-            <h5 class="card-title" style="font-size:19px; font-weight:bold;">{{product.product}}</h5>
-            <a href="{{ url_for('product_group', product_group=product.url) }}" class="btn btn-secondary">Ga verder</a>
+      <a class="col-md-4 d-flex align-items-stretch" href="{{ url_for('product_group', product_group=product.url) }}">
+        <div class="card" style="margin-bottom:10px;margin-top:10px">
+          <div class="bg-image hover-zoom">
+            <img class="card-img-top" src="{{product.image}}" style="max-width:45%; display:block; margin-left:auto; margin-right:auto; padding-top:10px;" alt="Card image cap"/>
+            <div class="card-body d-flex flex-column" style="text-align:center; padding-top:0px;">
+              <h5 class="card-title" style="font-size:19px; font-weight:bold; padding-top:10px">{{product.product}}</h5>
+            </div>
           </div>
         </div>
-      </div>
+      </a>
       {%endfor%}
 
     </div>
 
     <div class="row" style="padding-bottom: 10px;">
       {% for product in products[3:6]%}
-      <div class="col-sm-4">
-        <div class="card">
-          <img class="card-img-top" src="{{product.image}}" style="max-width:55%; margin-left:auto; margin-right:auto; padding-top:10px;" alt="Card image cap">
-          <div class="card-body" style="text-align:center; padding-top:0px;">
-            <h5 class="card-title" style="font-size:19px; font-weight:bold;">{{product.product}}</h5>
-            <a href="{{ url_for('product_group', product_group=product.url) }}" class="btn btn-secondary">Ga verder</a>
+      <a class="col-md-4 d-flex align-items-stretch" href="{{ url_for('product_group', product_group=product.url) }}">
+        <div class="card" style="margin-bottom:10px;margin-top:10px">
+          <div class="bg-image hover-zoom">
+            <img class="card-img-top" src="{{product.image}}" style="max-width:45%; display:block; margin-left:auto; margin-right:auto; padding-top:10px;" alt="Card image cap">
+            <div class="card-body" style="text-align:center; padding-top:0px;">
+              <h5 class="card-title" style="font-size:19px; font-weight:bold; padding-top:10px">{{product.product}}</h5>
+            </div>
           </div>
         </div>
-      </div>
+      </a>
       {%endfor%}
 
     </div>
 
     <div class="row" style="padding-bottom: 10px;">
       {% for product in products[6:9]%}
-      <div class="col-sm-4">
-        <div class="card">
-          <img class="card-img-top" src="{{product.image}}" style="max-width:55%; margin-left:auto; margin-right:auto; padding-top:10px;" alt="Card image cap">
-          <div class="card-body" style="text-align:center; padding-top:0px;">
-            <h5 class="card-title" style="font-size:19px; font-weight:bold;">{{product.product}}</h5>
-            <a href="{{ url_for('product_group', product_group=product.url) }}" class="btn btn-secondary">Ga verder</a>
+      <a class="col-md-4 d-flex align-items-stretch" href="{{ url_for('product_group', product_group=product.url) }}">
+        <div class="card" style="margin-bottom:10px;margin-top:10px">
+          <div class="bg-image hover-zoom">
+            <img class="card-img-top" src="{{product.image}}" style="max-width:45%; display:block; margin-left:auto; margin-right:auto; padding-top:10px;" alt="Card image cap">
+            <div class="card-body" style="text-align:center; padding-top:0px;">
+              <h5 class="card-title" style="font-size:19px; font-weight:bold; padding-top:10px">{{product.product}}</h5>
+            </div>
           </div>
         </div>
-      </div>
+      </a>
       {%endfor%}
 
     </div>
 
     <div class="row" style="padding-bottom: 10px;">
       {% for product in products[9:12]%}
-      <div class="col-sm-4">
-        <div class="card">
-          <img class="card-img-top" src="{{product.image}}" style="max-width:55%; margin-left:auto; margin-right:auto; padding-top:10px;" alt="Card image cap">
-          <div class="card-body" style="text-align:center; padding-top:0px;">
-            <h5 class="card-title" style="font-size:19px; font-weight:bold;">{{product.product}}</h5>
-            <a href="{{ url_for('product_group', product_group=product.url) }}" class="btn btn-secondary">Ga verder</a>
+      <a class="col-md-4 d-flex align-items-stretch" href="{{ url_for('product_group', product_group=product.url) }}">
+        <div class="card" style="margin-bottom:10px;margin-top:10px">
+          <div class="bg-image hover-zoom">
+            <img class="card-img-top" src="{{product.image}}" style="max-width:45%; display:block; margin-left:auto; margin-right:auto; padding-top:10px;" alt="Card image cap">
+            <div class="card-body" style="text-align:center; padding-top:0px;">
+              <h5 class="card-title" style="font-size:19px; font-weight:bold; padding-top:10px">{{product.product}}</h5>
+            </div>
           </div>
         </div>
-      </div>
+      </a>
       {%endfor%}
 
     </div>
