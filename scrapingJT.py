@@ -194,7 +194,7 @@ def scrapingJT(products):
                         dictSpecs['WIFI'] = ['Supported']
 
                     # WWAN
-                    elif ('4g' in spec.lower() and not '4gb' in spec.lower()) or ('sim' in spec.lower() and not 'zsim' in spec.lower() and not 'simple' in spec.lower()):
+                    elif ('4g' in spec.lower() and not '4gb' in spec.lower()) or ('5g' in spec.lower()) or (('sim' in spec.lower()) and (not 'zsim' in spec.lower()) and (not 'simple' in spec.lower())):
                         dictSpecs['WWAN'] = ['Supported']
 
                     # NFC
@@ -462,6 +462,10 @@ def scrapingJT(products):
 
 
     dfProduct = dfProduct.fillna(0)
+
+    depreciatedProducts = ['Honeywell Thor CV31', 'Honeywell VM2', 'Honeywell CN75-CN75e', 'Datalogic Skorpio X4', 'Datalogic Falcon X4', 'Zebra MT2000', 'Zebra MC3200', 'Zebra MC9200']
+    for p in depreciatedProducts:
+        dfProduct = dfProduct.drop(dfProduct[dfProduct['product-name'] == p].index)
 
     return dfProduct
 

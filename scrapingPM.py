@@ -337,6 +337,10 @@ def scrapingPM(products):
 
     dfProduct = dfProduct.fillna(0)
 
+    depreciatedProducts = ['Honeywell Thor CV31']
+    for p in depreciatedProducts:
+        dfProduct = dfProduct.drop(dfProduct[dfProduct['product-name'] == p].index)
+
     return dfProduct
 
 

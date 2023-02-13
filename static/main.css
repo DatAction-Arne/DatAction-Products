@@ -115,6 +115,23 @@ a.article-title:hover {
     word-wrap: break-word;
 }
 
+.btn {
+  background-color:#2630a5;
+  border-color:#2630a5;
+}
+
+.btn:hover {
+  color: #fff;
+  background-color:#20295b;
+  border-color:#20295b;
+}
+
+.btn:active {
+  color: #fff !important;
+  background-color:#20295b !important;
+  border-color:#20295b !important;
+}
+
 .btn-filter {
   background-color:#2630a5;
   border-color:#2630a5;
@@ -130,6 +147,18 @@ a.article-title:hover {
 }
 
 .btn-filter:hover {
+  color: #fff;
+  background-color:#20295b;
+  border-color:#20295b;
+}
+
+.btn-filter:active {
+  color: #fff !important;
+  background-color:#20295b !important;
+  border-color:#20295b !important;
+}
+
+.btn:active {
   color: #fff;
   background-color:#20295b;
   border-color:#20295b;

@@ -327,7 +327,10 @@ def filter_items(dict, productsFilter):
             elif key in ['Voor', 'Achter']:
                 list3.append('front') if key == 'Voor' else list3.append('rear')
             elif key in ['Android', 'Windows']:
-                list4.append(key)
+                keyTemp = key
+                if keyTemp == 'Windows':
+                    keyTemp = 'Win'
+                list4.append(keyTemp)
             elif key in ['IP40', 'IP41', 'IP42', 'IP52', 'IP54', 'IP64', 'IP65', 'IP67', 'IP68']:
                 list5.append(key)
             elif key == 'Cordless':
@@ -357,30 +360,35 @@ def filter_items(dict, productsFilter):
 
         if list1:
             productsFilter = productsFilter.loc[productsFilter['supplier'].isin(list1)]
+            print('1', indexList)
         if list2:
             indexList = []
             for index, row in productsFilter.iterrows():
                 if row['SCANNING'] !=0 and all(el in ', '.join(str(x) for x in row['SCANNING']) for el in list2):
                     indexList.append(index)
             productsFilter = productsFilter.loc[indexList]
+            print('2', indexList)
         if list3:
             indexList = []
             for index, row in productsFilter.iterrows():
                 if row['CAMERA'] !=0 and all(el in ', '.join(str(x) for x in row['CAMERA']) for el in list3):
                     indexList.append(index)
             productsFilter = productsFilter.loc[indexList]
+            print('3', indexList)
         if list4:
             indexList = []
             for index, row in productsFilter.iterrows():
-                if row['OS'] !=0 and all(el in ', '.join(str(x) for x in row['OS']) for el in list4):
+                if row['OS'] !=0 and all(el.lower() in ', '.join(str(x) for x in row['OS']).lower() for el in list4):
                     indexList.append(index)
             productsFilter = productsFilter.loc[indexList]
+            print('4', indexList)
         if list5:
             indexList = []
             for index, row in productsFilter.iterrows():
                 if row['IP RATING'] !=0 and all(el in ', '.join(str(x) for x in row['IP RATING']) for el in list5):
                     indexList.append(index)
             productsFilter = productsFilter.loc[indexList]
+            print('5', indexList)
         if list6:
             indexList = []
             for index, row in productsFilter.iterrows():
@@ -410,18 +418,22 @@ def filter_items(dict, productsFilter):
                     elif ('qwerty' in list6) and any([s for s in row['KEYPAD'] if 'qwerty' in str(s)]):
                         indexList.append(index)
             productsFilter = productsFilter.loc[indexList]
+            print('6', indexList)
         if list7:
             indexList = []
             for index, row in productsFilter.iterrows():
                 if row['PRINT MODE'] !=0 and all(el in ', '.join(str(x) for x in row['PRINT MODE']) for el in list7):
                     indexList.append(index)
             productsFilter = productsFilter.loc[indexList]
+            print('7', indexList)
         if list8:
             indexList = []
             for index, row in productsFilter.iterrows():
-                if row['RESOLUTION'] !=0 and all(el in ', '.join(str(x) for x in row['RESOLUTION']) for el in list8):
+                if row['RESOLUTION'] !=0 and all(el.replace(' ', '') in (', '.join(str(x) for x in row['RESOLUTION'])).replace(' ','') for el in list8):
+                    print(row['RESOLUTION'])
                     indexList.append(index)
             productsFilter = productsFilter.loc[indexList]
+            print('8', indexList)
 
         return productsFilter
         #print('After filter: ', len(productsFilter))
@@ -475,9 +487,10 @@ def init_filters(product_group):
                 if elNew == 'Windows':
                     elNew = 'Win'
 
-                if (elNew.lower().replace(' ', '') not in filteredProducts.loc[:, keyNew].to_string().lower().replace(' ', '')):
-                    print(keyNew, elNew, filteredProducts.loc[:, keyNew].to_string())
+                if (elNew.lower() not in filteredProducts.loc[:, keyNew].to_string().lower()):
+                    #print(keyNew, elNew, filteredProducts.loc[:, keyNew].to_string())
                     filter[key].remove(el)
+
 
     elif product_group == 'printers':
         filter = {'Leverancier' : ['Honeywell', 'Zebra'],
@@ -487,7 +500,6 @@ def init_filters(product_group):
                   # 'Printbreedte' : ['0 mm', '250 mm'],
                   # 'Snelheid' : ['0 mm/s', '400 mm/s'],
                   'WiFi' : ['Ja', 'Neen'],
-                  'WWAN (4G)' : ['Ja', 'Neen'],
                   'Bluetooth' : ['Ja', 'Neen'],
                   'IP Rating' : ['IP54', 'IP64', 'IP65', 'IP67', 'IP68']
                   }
@@ -506,7 +518,7 @@ def init_filters(product_group):
                     elNew = 'rear'
 
                 if (elNew.lower().replace(' ', '') not in filteredProducts.loc[:, keyNew].to_string().lower().replace(' ', '')):
-                    print(keyNew, elNew.lower().replace(' ', ''), filteredProducts.loc[:, keyNew].to_string())
+                    #print(keyNew, elNew.lower().replace(' ', ''), filteredProducts.loc[:, keyNew].to_string())
                     filter[key].remove(el)
 
     elif product_group == 'barcodescanners':
@@ -529,8 +541,8 @@ def init_filters(product_group):
                 if el == 'Neen':
                     elNew = '0'
 
-                if (elNew.lower().replace(' ', '') not in filteredProducts.loc[:, keyNew].to_string().lower().replace(' ', '')):
-                    print(keyNew, elNew, filteredProducts.loc[:, keyNew].to_string())
+                if (elNew.lower() not in filteredProducts.loc[:, keyNew].to_string().lower()):
+                    #print(keyNew, elNew, filteredProducts.loc[:, keyNew].to_string())
                     filter[key].remove(el)
     else:
         filter = {'Leverancier' : ['Datalogic', 'Getac', 'Honeywell', 'M3', 'Panasonic', 'Point Mobile', 'ProGlove', 'Zebra'],
@@ -562,8 +574,8 @@ def init_filters(product_group):
                 if elNew == 'Windows':
                     elNew = 'Win'
 
-                if (elNew.lower().replace(' ', '') not in filteredProducts.loc[:, keyNew].to_string().lower().replace(' ', '')):
-                    print(filteredProducts.loc[:, keyNew].to_string())
+                if (elNew.lower() not in filteredProducts.loc[:, keyNew].to_string().lower()):
+                    #print(filteredProducts.loc[:, keyNew].to_string())
                     filter[key].remove(el)
     return filter
 

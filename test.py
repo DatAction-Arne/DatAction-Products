@@ -13,18 +13,11 @@ products = json.load(f)
 #
 df = pd.DataFrame(products)
 
-dfSub = df[df['product-group'] == 'printers']
-
-#print(dfSub['product-name'], dfSub['SPEED'])
-
-today = datetime.today()
-someday = datetime.strptime('20-6-2022', '%d-%m-%Y')
-
-diff = someday - today
-
-print(diff.days)
-
-print((datetime.today().strftime('%d-%m-%Y')))
+if (any(df['product-name'].isin(['Honeywell Thor CV31']))):
+    print(df[df['product-name'] == 'Honeywell Thor CV31'].index)
+    print(len(df.index))
+    df = df.drop(df[df['product-name'] == 'Honeywell Thor CV31'].index)
+    print(len(df.index))
 
 
 
