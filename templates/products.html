@@ -14,7 +14,7 @@
         {% if el in ['WWAN (4G)', 'GPS', 'WiFi', 'Bluetooth', 'Freezer', 'Cordless'] %}
         <div>
           <br/>
-          <a data-toggle="collapse" href="#{{el|replace(' ', '')|replace('(','')|replace(')','')}}" aria-expanded="false" aria-controls="{{el|replace(' ', '')|replace('(','')|replace(')','')}}" style="color: black">
+          <a data-mdb-toggle="collapse" href="#{{el|replace(' ', '')|replace('(','')|replace(')','')}}" aria-expanded="false" aria-controls="{{el|replace(' ', '')|replace('(','')|replace(')','')}}" style="color: black">
           <h6 class="p-1 border-bottom">{{ el }}</h6></a>
             {% for c in filter[el] %}
             <div class="form-check collapse multi-collapse" id="{{el|replace(' ', '')|replace('(','')|replace(')','')}}">
@@ -40,7 +40,7 @@
         {% elif el in ['Printbreedte', 'Mediabreedte', 'Snelheid'] %}
         <div>
           <br/>
-          <a data-toggle="collapse" href="#{{el|replace(' ', '')}}" aria-expanded="false" aria-controls="{{el|replace(' ', '')}}" style="color: black">
+          <a data-mdb-toggle="collapse" href="#{{el|replace(' ', '')}}" aria-expanded="false" aria-controls="{{el|replace(' ', '')}}" style="color: black">
           <h6 class="p-1 border-bottom">{{ el }}</h6></a>
             {% for c in filter[el] %}
             <div class="collapse multi-collapse" id="{{el|replace(' ', '')}}">
@@ -55,7 +55,7 @@
         {% else %}
         <div>
           <br/>
-          <a data-toggle="collapse" href="#{{el|replace(' ', '')}}" aria-expanded="false" aria-controls="{{el|replace(' ', '')}}" style="color: black">
+          <a data-mdb-toggle="collapse" href="#{{el|replace(' ', '')}}" aria-expanded="false" aria-controls="{{el|replace(' ', '')}}" style="color: black">
           <h6 class="p-1 border-bottom">{{ el }}</h6></a>
             {% for c in filter[el] %}
             <div class="form-check collapse multi-collapse" id="{{el|replace(' ', '')}}">

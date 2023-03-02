@@ -14,6 +14,9 @@ variables:
         PACKAGE_MANAGER: poetry
         PIP_VERSION: 22.0.4
         PIPENV_VERSION_BUILD: 2022.4.21
+        POETRY_VERSION: 1.1.13
+        POETRY_VIRTUALENVS_IN_PROJECT: true
+        POETRY_VIRTUALENVS_CREATE: false
 
 hooks:
     build: |
@@ -42,10 +45,11 @@ hooks:
             poetry check
             poetry install
         fi
+
 web:
     # Commands are run once after deployment to start the application process.
     commands:
-        start: python app.py
+        start: blackfire-python flask run -p $PORT
 
 # The size of the persistent disk of the application (in MB).
 disk: 1024
@@ -54,9 +58,8 @@ disk: 1024
 # The left-hand side is the name of the relationship as it will be exposed
 # to the application in the PLATFORM_RELATIONSHIPS variable. The right-hand
 # side is in the form `<service name>:<endpoint name>`.
-#relationships:
-#    database: "db:mysql"
-#    rediscache: "cache:redis"
+relationships:
+    database: "db:mysql"
 
 # The configuration of app when it is exposed to the web.
 
