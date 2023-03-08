@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block filter %}
-<div class="col-lg-3">
+<div class="col-lg-3 mobile-hidden">
   <div class="content-section">
     <h3>Filter</h3>
     <form method="post" action="/{{product_group}}">
@@ -77,32 +77,115 @@
 {% endblock filter %}
 
 {% block content %}
-<div class="col-lg-9">
+<div class="col-12 col-sm-12 col-md-12 col-lg-9">
     <form action="{{ url_for('home') }}" method="post" autocomplete="off" >
-      <div class="input-group" style="padding-bottom:20px;">
+      <div class="input-group" style="padding-bottom:15px;">
           <button id="searchButton" type="submit" class="btn btn-custom" > <i class="fa fa-search" style="color:white"> </i> </button>
           <input role="form" name="searchInput" id="autocomplete" type="text" placeholder="Zoeken..." aria-describedby="button-addon8" class="form-control">
 
         </div>
     </form>
+
+    <div class="mobile-show">
+      <button class="btn btn-custom" type="button" data-mdb-toggle="offcanvas" data-mdb-target="#offcanvasFilter" aria-controls="offcanvasFilter" style="margin-bottom:15px; width:100%;">
+        <span class="iconify" data-icon="mdi:filter-menu" style="display: inline-block; font-size:15px;"> </span>
+        <span> &nbsp;  Filter </span>
+      </button>
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasFilter" aria-labelledby="offcanvasFilter1">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offCanvasFilter1">Filter</h5>
+          <button type="button" class="btn-close text-reset" data-mdb-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+
+        <div class="offcanvas-body" style="padding-top:0px;">
+          <form method="post" action="/{{product_group}}">
+            <div class="d-flex justify-content-center">
+              <a href="{{ url_for('product_group', product_group=product_group) }}" type="button" class="btn btn-filter" >Reset</a>
+              <!--<input role = "form" type="submit" class="btn btn-filter" value="Toepassen" style="background-color:#20295b;border-color:#20295b;"/>-->
+              <button type="submit" class="btn btn-filter">Toepassen</button>
+            </div>
+            {% for el in filter.keys() %}
+              {% if el in ['WWAN (4G)', 'GPS', 'WiFi', 'Bluetooth', 'Freezer', 'Cordless'] %}
+              <div>
+                <br/>
+                <a data-mdb-toggle="collapse" href="#{{el|replace(' ', '')|replace('(','')|replace(')','')}}" aria-expanded="false" aria-controls="{{el|replace(' ', '')|replace('(','')|replace(')','')}}" style="color: black">
+                <h6 class="p-1 border-bottom">{{ el }}</h6></a>
+                  {% for c in filter[el] %}
+                  <div class="form-check collapse multi-collapse" id="{{el|replace(' ', '')|replace('(','')|replace(')','')}}">
+                    {% if c == "Ja" %}
+                      {% if (el in search) and (search[el] == 'Y') %}
+                        <input class="form-check-input" type="radio" value="Y" name="{{el}}" id="{{c}}" checked>
+                      {% else %}
+                        <input class="form-check-input" type="radio" value="Y" name="{{el}}" id="{{c}}">
+                      {% endif %}
+                      <label class="form-check-label" for="{{c}}">{{ c }}</label>
+                    {% else %}
+                      {% if (el in search) and (search[el] == 'N') %}
+                        <input class="form-check-input" type="radio" value="N" name="{{el}}" id="{{c}}" checked>
+                      {% else %}
+                        <input class="form-check-input" type="radio" value="N" name="{{el}}" id="{{c}}">
+                      {% endif %}
+                      <label class="form-check-label" for="{{c}}">{{ c }}</label>
+                    {% endif %}
+                   </div>
+                  {% endfor %}
+
+              </div>
+              {% elif el in ['Printbreedte', 'Mediabreedte', 'Snelheid'] %}
+              <div>
+                <br/>
+                <a data-mdb-toggle="collapse" href="#{{el|replace(' ', '')}}" aria-expanded="false" aria-controls="{{el|replace(' ', '')}}" style="color: black">
+                <h6 class="p-1 border-bottom">{{ el }}</h6></a>
+                  {% for c in filter[el] %}
+                  <div class="collapse multi-collapse" id="{{el|replace(' ', '')}}">
+
+                    <div id="{{'slider-' + el}}"></div>
+
+                    <label class="form-check-label" for="{{c}}" >{{ c }}</label> </div>
+                  {% endfor %}
+
+              </div>
+
+              {% else %}
+              <div>
+                <br/>
+                <a data-mdb-toggle="collapse" href="#{{el|replace(' ', '')}}" aria-expanded="false" aria-controls="{{el|replace(' ', '')}}" style="color: black">
+                <h6 class="p-1 border-bottom">{{ el }}</h6></a>
+                  {% for c in filter[el] %}
+                  <div class="form-check collapse multi-collapse" id="{{el|replace(' ', '')}}">
+                    {% if c in search %}
+                      <input class="form-check-input" type="checkbox" value="Y" name="{{c}}" id="{{c}}" checked>
+                    {% else %}
+                      <input class="form-check-input" type="checkbox" value="Y" name="{{c}}" id="{{c}}">
+                    {% endif %}
+                    <label class="form-check-label" for="{{c}}" >{{ c }}</label> </div>
+                  {% endfor %}
+
+              </div>
+              {% endif %}
+            {% endfor %}
+          </form>
+        </div>
+      </div>
+    </div>
     <div class="list-group">
         {% for i in range(0, iter) %}
           <a href="{{ url_for('item', product_name=products.iloc[iter - 1 - i]['product-name'], product_group=products.iloc[iter - 1 - i]['product-group']) }}" class="list-group-item list-group-item-action">
-            <div class="row">
-              <div class="col-sm-2" style="margin-bottom:auto; margin-top:auto; margin-left:auto; margin-right:auto;">
+            <div class="row center" >
+              <div class="col-3 col-sm-3 col-md-3 col-lg-3 center-image-xs" >
                 {% if products.iloc[iter - 1 - i]['image'] %}
-                  <img class="img-fluid product-img" src="{{ url_for('static', filename=products.iloc[iter - 1 - i]['image']) }}" style="max-width: 150px; ">
+                  <img class="img-fluid product-img " src="{{ url_for('static', filename='img/' + products.iloc[iter - 1 - i]['image']) }}" >
                 {% else %}
-                  <img class="img-fluid product-img" src="/static/no_image.png" style="max-width: 150px; ">
+                  <img class="img-fluid product-img" src="/static/img/no_image.png" >
                 {% endif %}
               </div>
-              <div class="col-md-10">
+              <div class="col-8 col-sm-9 col-md-9 col-lg-9 center-image-xs" >
                 {% if products.iloc[iter - 1 - i]['new'] %}
-                  <h4 class="mt-0"><span class="badge bg-danger text-light">NEW</span> {{ products.iloc[iter - 1 - i]['product-name'] }}</h4>
+                  <h4 class="mt-0 float-left"><span class="badge bg-danger text-light">NEW</span>&nbsp;{{ products.iloc[iter - 1 - i]['product-name'] }}</h4>
                 {% else %}
-                  <h4 class="mt-0"> {{ products.iloc[iter - 1 - i]['product-name'] }}</h4>
+                  <h4 class="mt-0 float-left"> {{ products.iloc[iter - 1 - i]['product-name'] }}</h4>
                 {% endif %}
-
+                  <div class="mobile-hidden-text">
 
                     {% if products.iloc[iter - 1 - i]['CAMERA'] %}
 
@@ -196,6 +279,7 @@
                       <b>{{ 'IP RATING' }}</b>: &nbsp;
                       {{ (content|join(", ")).split(', 0', 1)[0] }}&nbsp;
                     {% endif %}
+                  </div>
 
               </div>
             </div>

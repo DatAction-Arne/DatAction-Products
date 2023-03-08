@@ -9,8 +9,8 @@
     </form>
 
     <div class="row" style="padding-bottom: 10px;">
-      {% for product in products[0:3]%}
-      <a class="col-md-4 d-flex align-items-stretch" href="{{ url_for('product_group', product_group=product.url) }}">
+      {% for product in products[0:12]%}
+      <a class="col-12 col-sm-6 col-md-6 col-lg-4 d-flex align-items-stretch" href="{{ url_for('product_group', product_group=product.url) }}">
         <div class="card" style="margin-bottom:10px;margin-top:10px">
           <div class="bg-image hover-zoom">
             <img class="card-img-top" src="{{product.image}}" style="max-width:45%; display:block; margin-left:auto; margin-right:auto; padding-top:10px;" alt="Card image cap"/>
@@ -22,55 +22,9 @@
       </a>
       {%endfor%}
 
-    </div>
+    </div>   
 
-    <div class="row" style="padding-bottom: 10px;">
-      {% for product in products[3:6]%}
-      <a class="col-md-4 d-flex align-items-stretch" href="{{ url_for('product_group', product_group=product.url) }}">
-        <div class="card" style="margin-bottom:10px;margin-top:10px">
-          <div class="bg-image hover-zoom">
-            <img class="card-img-top" src="{{product.image}}" style="max-width:45%; display:block; margin-left:auto; margin-right:auto; padding-top:10px;" alt="Card image cap">
-            <div class="card-body" style="text-align:center; padding-top:0px;">
-              <h5 class="card-title" style="font-size:19px; font-weight:bold; padding-top:10px">{{product.product}}</h5>
-            </div>
-          </div>
-        </div>
-      </a>
-      {%endfor%}
 
-    </div>
-
-    <div class="row" style="padding-bottom: 10px;">
-      {% for product in products[6:9]%}
-      <a class="col-md-4 d-flex align-items-stretch" href="{{ url_for('product_group', product_group=product.url) }}">
-        <div class="card" style="margin-bottom:10px;margin-top:10px">
-          <div class="bg-image hover-zoom">
-            <img class="card-img-top" src="{{product.image}}" style="max-width:45%; display:block; margin-left:auto; margin-right:auto; padding-top:10px;" alt="Card image cap">
-            <div class="card-body" style="text-align:center; padding-top:0px;">
-              <h5 class="card-title" style="font-size:19px; font-weight:bold; padding-top:10px">{{product.product}}</h5>
-            </div>
-          </div>
-        </div>
-      </a>
-      {%endfor%}
-
-    </div>
-
-    <div class="row" style="padding-bottom: 10px;">
-      {% for product in products[9:12]%}
-      <a class="col-md-4 d-flex align-items-stretch" href="{{ url_for('product_group', product_group=product.url) }}">
-        <div class="card" style="margin-bottom:10px;margin-top:10px">
-          <div class="bg-image hover-zoom">
-            <img class="card-img-top" src="{{product.image}}" style="max-width:45%; display:block; margin-left:auto; margin-right:auto; padding-top:10px;" alt="Card image cap">
-            <div class="card-body" style="text-align:center; padding-top:0px;">
-              <h5 class="card-title" style="font-size:19px; font-weight:bold; padding-top:10px">{{product.product}}</h5>
-            </div>
-          </div>
-        </div>
-      </a>
-      {%endfor%}
-
-    </div>
 
 
 </div>

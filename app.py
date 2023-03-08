@@ -258,6 +258,10 @@ def download_pdf(product_name1, product_name2):
     return response
     #return redirect(url_for('compare', product_name1=product_name1, product_name2=product_name2))
 
+@app.route("/datasheet/pdf/<name>")
+def datasheet(name):
+    return send_from_directory('./static/pdf', name)
+
 
 @app.route("/favicon.ico")
 def favicon():

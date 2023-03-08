@@ -128,7 +128,7 @@ def scrapingJT(products):
 
                     imgName = nameProduct.replace('/','-')
                     imgType = urlImage.split('.')[-1]
-                    img.save(f'static/{imgName}.{imgType}')
+                    img.save(f'static/img/{imgName}.{imgType}')
                     imgDict[nameProduct] = imgName + '.' + imgType
                 else:
                     imgDict[nameProduct] = None

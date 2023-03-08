@@ -11,3 +11,8 @@ git add.
 git commit -m "<name>"
 git push -u webpaas master
 ````
+
+To update the poetry lock file:
+````
+poetry lock --no-update
+````

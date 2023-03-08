@@ -17,6 +17,7 @@
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.css" rel="stylesheet" />
 
+
     <link rel="stylesheet" type="text/css" href="/static/main.css">
     <link rel="shortcut icon" href="/static/favicon.ico">
 
@@ -25,9 +26,9 @@
   <body>
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
-        <div class="container">
+        <div class="container container-main">
           <a class="navbar-brand mr-4" href="/home">
-            <img src="/static/logo-white.png" height="30" class="d-inline-block align-top logo-img">
+            <img src="/static/img/logo-white.png" height="30" class="d-inline-block align-top logo-img">
           </a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
@@ -42,7 +43,7 @@
       </nav>
     </header>
 
-    <main role="main" class="container" >
+    <main role="main" class="container-main">
       <div class="row">
         {% block filter %}{% endblock filter %}
 
@@ -60,6 +61,7 @@
     <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.1.0/mdb.min.js"></script>
     <script type="text/javascript" src="/static/nouislider.min.js"></script>
+
 
     <script>
       var slider = document.getElementById('slider-Printbreedte');

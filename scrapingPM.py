@@ -290,7 +290,7 @@ def scrapingPM(products):
 
                 imgName = nameProduct.replace('/','-')
                 imgType = urlImage.split('.')[-1]
-                img.save(f'static/{imgName}.{imgType}')
+                img.save(f'static/img/{imgName}.{imgType}')
                 imgDict[nameProduct] = imgName + '.' + imgType
             else:
                 imgDict[nameProduct] = None
@@ -345,4 +345,6 @@ def scrapingPM(products):
 
 
 if __name__ == '__main__':
-    scrapingPM()
+    with open('products.json', 'r') as f:
+        products = json.load(f)
+    scrapingPM(products)

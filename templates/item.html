@@ -12,51 +12,62 @@
       <div class="row">
         <div class="col-md-4 pull-md-right" style="text-align:center;">
           {% if item.iloc[0]['image'] %}
-            <img class="product-img" src="{{ url_for('static', filename=item.iloc[0]['image']) }}" style="width: 250px;">
+            <img class="item-img" src="{{ url_for('static', filename='img/' + item.iloc[0]['image']) }}">
           {% else %}
-            <img class="product-img" src="/static/no_image.png" style="width: 250px;">
+            <img class="item-img" src="/static/img/no_image.png" >
           {% endif %}
         </div>
 
         <div class="col-md-8"  >
             {% if item.iloc[0]['new'] %}
-              <h1 class="mt-5"><span class="badge bg-danger text-light">NEW</span> {{ item.iloc[0]['product-name'] }}</h1>
+              <h1 class="mt-5 h1-center" style="display: flex;">
+                <span class="badge bg-danger text-light center" style="font-size:18px;  max-height:30px; ">NEW</span>
+                <span>&nbsp;{{ item.iloc[0]['product-name'] }}</span>
+              </h1>
             {% else %}
-              <h1 class="mt-5"> {{ item.iloc[0]['product-name'] }}</h1>
+              <h1 class="mt-5 h1-center"> {{ item.iloc[0]['product-name'] }}</h1>
             {% endif %}
-            <div class="container-fluid">
-              <span class="iconify" data-icon="mdi:information-variant"></span>
-              Link naar spec sheet:
-              <a href="{{ item.iloc[0]['link'] }}"> HIER </a>
-            </div>
-            {% if item.iloc[0]['accessories'] %}
-              <div class="container-fluid">
-                <span class="iconify" data-icon="ic:baseline-cable"></span>
-                Link naar accessoires:
-                <a href="{{ item.iloc[0]['accessories'] }}"> HIER </a>
-              </div>
-            {% endif %}
-            <br/>
-            <div class="container-fluid ">
-              <a href="{{ url_for('compare', product_name1=item.iloc[0]['product-name'], product_name2=item.iloc[0]['product-group']) }}" class="btn btn-custom" style="min-width:60px;max-width:120px;">Vergelijk</a>
+            <div class="container-fluid my-container">
+              <div class="row h1-center">
+                  <a href="{{ item.iloc[0]['link'] }}" class="btn btn-custom" target="_blank" style="padding-left: 7px; padding-right: 5px; margin:6px; width:140px">
+                    <span> DATASHEET </span>
+                    &nbsp;
+                    <span class="iconify" data-icon="material-symbols:keyboard-arrow-right" style="display: inline-block; font-size:20px;"></span>
+                  </a>
+                  {% if item.iloc[0]['accessories'] %}
+                  <a href="{{ item.iloc[0]['link'] }}" class="btn btn-custom" target="_blank" style="padding-left: 7px; padding-right: 5px; margin:6px; width:140px">
+                    <span> ACCESOIRES </span>
+                    &nbsp;
+                    <span class="iconify" data-icon="material-symbols:keyboard-arrow-right" style="display: inline-block; font-size:20px"></span>
+                  </a>
+                  {% endif %}
+
+                  <a href="{{ url_for('compare', product_name1=item.iloc[0]['product-name'], product_name2=item.iloc[0]['product-group']) }}" class="btn btn-custom-transp" style="padding-left: 7px; padding-right: 5px; margin:6px; width:140px">
+                    <span> Vergelijk </span>
+                    &nbsp;
+                    <span class="iconify" data-icon="material-symbols:keyboard-arrow-right" style="display: inline-block; font-size:20px"></span>
+                  </a>
+                </div>
 
             </div>
         </div>
       </div>
-      <br/>
-      <br/>
-      <div class= "row" style="margin-left:10px;margin-right:10px;margin-bottom:20px">
+
+
+
+
+      {### DESKTOP ###}
+      <div class= "row compare-mobile-hidden" style="margin-left:10px;margin-right:10px;margin-bottom:20px">
         {% set l = (specs.columns|length)/2 %}
         {% set l = l|round%}
 
-
-        <div class='col-md-6'>
+        <div class='col-md-6' style="padding-right:5px; padding-left:5px;margin-bottom:20px">
           <div class="card " style="border: 1px solid #C8CFD4;padding:0px">
             <table class="table" border="0" cellspacing="0" cellpadding="5" style="margin:0px">
               {% for i in range(0, l|int) %}
 
                 <tr>
-                  <td width="35%"><b>{{ specs.columns[i] }}</b></td>
+                  <td width="45%"><b>{{ specs.columns[i] }}</b></td>
                   <td>
                     {% for content in specs[specs.columns[i]].dropna() %}
                       {% for el in content %}
@@ -75,12 +86,12 @@
 
 
 
-        <div class='col-md-6'>
+        <div class='col-md-6' style="padding-right:5px; padding-left:5px; margin-bottom:20px">
           <div class="card " style="border: 1px solid #C8CFD4">
             <table class="table" border="0" cellspacing="0" cellpadding="5" style="margin:0px">
               {% for i in range(l|int, specs.columns|length) %}
                 <tr>
-                  <td width="35%"><b>{{ specs.columns[i] }}</b></td>
+                  <td width="45%"><b>{{ specs.columns[i] }}</b></td>
                   <td>
                     {% for content in specs[specs.columns[i]].dropna() %}
                       {% for el in content %}
@@ -98,6 +109,38 @@
         </div>
 
       </div>
+
+
+
+
+      {### MOBILE ###}
+      <div class= "row compare-mobile-show" style="margin-left:10px;margin-right:10px;margin-bottom:20px">
+        {% set l = (specs.columns|length) %}
+        {% set l = l|round%}
+
+        <div class='col-12' style="padding-right:5px; padding-left:5px;margin-bottom:20px">
+          <div class="card " style="border: 1px solid #C8CFD4;padding:0px">
+            <table class="table" border="0" cellspacing="0" cellpadding="5" style="margin:0px">
+              {% for i in range(0, l|int) %}
+
+                <tr>
+                  <td width="45%"><b>{{ specs.columns[i] }}</b></td>
+                  <td>
+                    {% for content in specs[specs.columns[i]].dropna() %}
+                      {% for el in content %}
+                        {% if el != 0 %}
+                          {{ el }}<br/>
+                        {% endif %}
+                      {% endfor %}
+                    {% endfor %}
+
+                  </td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+
     </div>
   </div>
 

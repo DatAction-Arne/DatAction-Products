@@ -1,4 +1,4 @@
-import os
+import os, sys, subprocess, platform
 import numpy as np
 import pandas as pd
 import json
@@ -12,19 +12,19 @@ import gevent.pywsgi
 from platformshconfig import Config
 
 subgroups = [
-            { 'product' : "Handterminals", 'image' : 'static/handterminal.jpg', 'url' : 'handterminals' },
-            { 'product' : "Truckterminals", 'image' : 'static/heftruckterminal.jpg', 'url' : 'heftruck-terminals' },
-            { 'product' : "Wearables", 'image' : 'static/wearablecomputer.jpg', 'url' : 'wearable-computers' },
+            { 'product' : "Handterminals", 'image' : 'static/img/handterminal.jpg', 'url' : 'handterminals' },
+            { 'product' : "Truckterminals", 'image' : 'static/img/heftruckterminal.jpg', 'url' : 'heftruck-terminals' },
+            { 'product' : "Wearables", 'image' : 'static/img/wearablecomputer.jpg', 'url' : 'wearable-computers' },
 
-            { 'product' : "Handheld computers (PDA)", 'image' : 'static/pda.jpg', 'url' : 'pda' },
-            { 'product' : "Barcodescanners", 'image' : 'static/barcodescanners.jpg', 'url' : 'barcodescanners' },
-            ##{ 'product' : "FIXED SCANNERS", 'image' : 'static/scanner.png', 'url' : 'fixed-scanners' },
-            { 'product' : "Printers", 'image' : 'static/printer.jpg', 'url' : 'printers' },
-            ##{ 'product' : "VOICE PICKING", 'image' : 'static/voice.jpg', 'url' : 'voice' },
-            { 'product' : "Robuuste tablet PC's", 'image' : 'static/tablet.jpg', 'url' : 'tablets' },
-            { 'product' : "Rugged laptop", 'image' : 'static/ruggedlaptop.jpg', 'url' : 'rugged-laptops' },
-            ##{ 'product' : "TOUCH PC'S", 'image' : 'static/touchpc.png', 'url' : 'touch-pc' },
-            { 'product' : "RFID", 'image' : 'static/rfid.jpg', 'url' : 'rfid' },
+            { 'product' : "Handheld computers (PDA)", 'image' : 'static/img/pda.jpg', 'url' : 'pda' },
+            { 'product' : "Barcodescanners", 'image' : 'static/img/barcodescanners.jpg', 'url' : 'barcodescanners' },
+            ##{ 'product' : "FIXED SCANNERS", 'image' : 'static/img/scanner.png', 'url' : 'fixed-scanners' },
+            { 'product' : "Printers", 'image' : 'static/img/printer.jpg', 'url' : 'printers' },
+            ##{ 'product' : "VOICE PICKING", 'image' : 'static/img/voice.jpg', 'url' : 'voice' },
+            { 'product' : "Robuuste tablet PC's", 'image' : 'static/img/tablet.jpg', 'url' : 'tablets' },
+            { 'product' : "Rugged laptop", 'image' : 'static/img/ruggedlaptop.jpg', 'url' : 'rugged-laptops' },
+            ##{ 'product' : "TOUCH PC'S", 'image' : 'static/img/touchpc.png', 'url' : 'touch-pc' },
+            { 'product' : "RFID", 'image' : 'static/img/rfid.jpg', 'url' : 'rfid' },
             ]
 
 # Formatting
@@ -253,8 +253,14 @@ def download_pdf(product_name1, product_name2):
 
     #path_wkhtmltopdf = r'C:\DatAction\Dataction-Product-Selection\requirements\wkhtmltopdf\bin\wkhtmltopdf.exe'
     #path_wkhtmltopdf = r'C:\Users\ArneVanErum\OneDrive - Dataction BV\Projecten\Product app\requirements\wkhtmltopdf\bin\wkhtmltopdf.exe'
-    path_wkhtmltopdf = './requirements/wkhtmltopdf/bin/wkhtmltopdf.exe'
-    config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+    if platform.system() == "Windows":
+        path_wkhtmltopdf = './requirements/wkhtmltopdf/bin/wkhtmltopdf.exe'
+        config = pdfkit.configuration(wkhtmltopdf=os.environ.get('WKHTMLTOPDF_BINARY', path_wkhtmltopdf))
+    else:
+        os.environ['PATH'] += os.pathsep + os.path.dirname(sys.executable)
+        WKHTMLTOPDF_CMD = subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')], stdout=subprocess.PIPE).communicate()[0].strip()
+        config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
+
     options = {"enable-local-file-access": None, "orientation": "Landscape"}
     outFile = 'comparison_{}_{}.pdf'.format(product_name1.replace(' ', ''), product_name2.replace(' ', ''))
     pdf = pdfkit.from_string(rendered, False, configuration = config, options = options)
@@ -265,6 +271,9 @@ def download_pdf(product_name1, product_name2):
     return response
     #return redirect(url_for('compare', product_name1=product_name1, product_name2=product_name2))
 
+@app.route("/datasheet/pdf/<name>")
+def datasheet(name):
+    return send_from_directory('./static/pdf', name)
 
 @app.route("/favicon.ico")
 def favicon():
