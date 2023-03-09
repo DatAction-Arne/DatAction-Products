@@ -311,7 +311,7 @@ def scrapingPM(products):
             sleep(3)
 
             parsed = BeautifulSoup(driver.page_source, 'html5lib')
-            links = [item['href'] for item in parsed.find_all('a', {'class': 'button--show_item' }) if (('quickstartguide' not in item['href'].lower().replace(' ','')) and ('https' in item['href']))]
+            links = [item['href'] for item in parsed.find_all('a', {'class': 'button--show_item' }) if (('quickstartguide' not in item['href'].lower().replace(' ','').replace('_','')) and ('usermanual' not in item['href'].lower().replace(' ','').replace('_','')) and ('https' in item['href']))]
             dictProduct['link'] = links[0]
 
             # Sort content keys

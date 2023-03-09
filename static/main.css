@@ -480,6 +480,14 @@ input[type=text] {
   text-align: center;
 }
 
+@media (max-width:400px) {
+  .center-text-xs {
+    text-align: center;
+  }
+}
+
+
+
 .hide-scrollbar {
   scrollbar-color: #2630a5 #ededed;
   scrollbar-width: thin;
@@ -526,4 +534,25 @@ input[type=text] {
   height: 220px;
   width: 180px;
   flex-shrink: 0;
+}
+
+@media (max-width:400px) {
+  #prod-name::before {
+      content: "\a";
+      white-space: pre;
+  }
+}
+
+@media (max-width:768px) {
+  #comp-prod-1::before {
+      content: "\a";
+      white-space: pre;
+  }
+}
+
+@media (max-width:768px) {
+  #comp-prod-2::before {
+      content: "\a";
+      white-space: pre;
+  }
 }

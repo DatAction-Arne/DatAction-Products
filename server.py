@@ -1,4 +1,4 @@
-import os, sys, subprocess, platform
+import os
 import numpy as np
 import pandas as pd
 import json
@@ -251,15 +251,8 @@ def download_pdf(product_name1, product_name2):
 
     rendered = render_template('downloadPDF.html', item1=item1, specs1=specs1, product_name1=product_name1, products1=productComp1, item2=item2, specs2=specs2, product_name2=product_name2, products2=productComp2, urlList=urlList)
 
-    #path_wkhtmltopdf = r'C:\DatAction\Dataction-Product-Selection\requirements\wkhtmltopdf\bin\wkhtmltopdf.exe'
-    #path_wkhtmltopdf = r'C:\Users\ArneVanErum\OneDrive - Dataction BV\Projecten\Product app\requirements\wkhtmltopdf\bin\wkhtmltopdf.exe'
-    if platform.system() == "Windows":
-        path_wkhtmltopdf = './requirements/wkhtmltopdf/bin/wkhtmltopdf.exe'
-        config = pdfkit.configuration(wkhtmltopdf=os.environ.get('WKHTMLTOPDF_BINARY', path_wkhtmltopdf))
-    else:
-        os.environ['PATH'] += os.pathsep + os.path.dirname(sys.executable)
-        WKHTMLTOPDF_CMD = subprocess.Popen(['which', os.environ.get('WKHTMLTOPDF_BINARY', 'wkhtmltopdf')], stdout=subprocess.PIPE).communicate()[0].strip()
-        config = pdfkit.configuration(wkhtmltopdf=WKHTMLTOPDF_CMD)
+    path_wkhtmltopdf = './requirements/wkhtmltopdf/bin/wkhtmltopdf.exe'
+    config = pdfkit.configuration(wkhtmltopdf=os.environ.get('WKHTMLTOPDF_BINARY', path_wkhtmltopdf))
 
     options = {"enable-local-file-access": None, "orientation": "Landscape"}
     outFile = 'comparison_{}_{}.pdf'.format(product_name1.replace(' ', ''), product_name2.replace(' ', ''))
@@ -269,7 +262,7 @@ def download_pdf(product_name1, product_name2):
     response.headers["Content-Disposition"] = "inline; filename="+outFile
 
     return response
-    #return redirect(url_for('compare', product_name1=product_name1, product_name2=product_name2))
+
 
 @app.route("/datasheet/pdf/<name>")
 def datasheet(name):
@@ -331,7 +324,8 @@ def compare_params(product_name1, product_name2):
 
 
 def filter_items(dict, productsFilter):
-    if type(dict is dict):
+    print(dict)
+    if (type(dict is dict) and dict is not None):
         #print('Before filter: ', len(productsFilter))
         list1, list2, list3, list4, list5, list6, list7, list8 = [], [], [], [], [], [], [], [],
         for key in dict.keys():
@@ -448,7 +442,7 @@ def filter_items(dict, productsFilter):
 
     else:
         #print("Wrong data type")
-        exit()
+        return productsFilter
 
 
 def init_filters(product_group):
@@ -592,5 +586,6 @@ def init_filters(product_group):
 
 if __name__ == "__main__":
     #app.run(debug=True)
-    http_server = gevent.pywsgi.WSGIServer(('127.0.0.1', 5000), app)
+    #http_server = gevent.pywsgi.WSGIServer(('127.0.0.1', 5000), app)
+    http_server = gevent.pywsgi.WSGIServer(('0.0.0.0', 5000), app)
     http_server.serve_forever()

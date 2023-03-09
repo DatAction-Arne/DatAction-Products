@@ -1,11 +1,12 @@
 {% extends "layout.html" %}
 {% block content %}
-<div class="col-sm-12 d-flex justify-content-center" style="text-align:center; padding-bottom:20px;">
+
+<!--div class="col-sm-12 d-flex justify-content-center" style="text-align:center; padding-bottom:20px;">
   <a href="{{ url_for('download_pdf', product_name1=product_name1, product_name2=product_name2) }}" class="btn btn-custom" target="_blank" style="width:300px;">
     <span class="iconify" data-icon="mi:export" style="display: inline-block; font-size:16px;"> </span>
     <span> &nbsp;  Exporteer PDF </span>
   </a>
-</div>
+</div-->
 
 
 {### DESKTOP ###}
@@ -45,7 +46,7 @@
                     <span class="iconify" data-icon="material-symbols:keyboard-arrow-right" style="display: inline-block; font-size:20px;"></span>
                   </a>
                   {% if item1.iloc[0]['accessories'] %}
-                  <a href="{{ item1.iloc[0]['link'] }}" class="btn btn-custom" target="_blank" style="padding-left: 7px; padding-right: 5px; margin:6px; width:140px">
+                  <a href="{{ item1.iloc[0]['accessories'] }}" class="btn btn-custom" target="_blank" style="padding-left: 7px; padding-right: 5px; margin:6px; width:140px">
                     <span> ACCESOIRES </span>
                     &nbsp;
                     <span class="iconify" data-icon="material-symbols:keyboard-arrow-right" style="display: inline-block; font-size:20px"></span>
@@ -153,7 +154,7 @@
                     <span class="iconify" data-icon="material-symbols:keyboard-arrow-right" style="display: inline-block; font-size:20px;"></span>
                   </a>
                   {% if item2.iloc[0]['accessories'] %}
-                  <a href="{{ item2.iloc[0]['link'] }}" class="btn btn-custom" target="_blank" style="padding-left: 7px; padding-right: 5px; margin:6px; width:140px">
+                  <a href="{{ item2.iloc[0]['accessories'] }}" class="btn btn-custom" target="_blank" style="padding-left: 7px; padding-right: 5px; margin:6px; width:140px">
                     <span> ACCESOIRES </span>
                     &nbsp;
                     <span class="iconify" data-icon="material-symbols:keyboard-arrow-right" style="display: inline-block; font-size:20px"></span>
@@ -268,7 +269,7 @@
                     <span class="iconify" data-icon="material-symbols:keyboard-arrow-right" style="display: inline-block; font-size:20px;"></span>
                   </a>
                   {% if item1.iloc[0]['accessories'] %}
-                  <a href="{{ item1.iloc[0]['link'] }}" class="btn btn-custom" target="_blank" style="padding-left: 7px; padding-right: 5px; margin:6px; width:140px">
+                  <a href="{{ item1.iloc[0]['accessories'] }}" class="btn btn-custom" target="_blank" style="padding-left: 7px; padding-right: 5px; margin:6px; width:140px">
                     <span> ACCESOIRES </span>
                     &nbsp;
                     <span class="iconify" data-icon="material-symbols:keyboard-arrow-right" style="display: inline-block; font-size:20px"></span>
@@ -325,12 +326,12 @@
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 center-image-md">
               {% if products1.iloc[products1|length - 1 - i]['new'] %}
-                <h4 class="mt-0 float-left center-text">
+                <h4 class="mt-0 center-text">
                   <span class="badge bg-danger text-light">NEW</span>
-                  &nbsp;{{ products1.iloc[products1|length - 1 - i]['product-name'] }}
+                  <span id="comp-prod-1"> &nbsp;{{ products1.iloc[products1|length - 1 - i]['product-name'] }}</span>
                 </h4>
               {% else %}
-                <h4 class="mt-0 float-left center-text"> {{ products1.iloc[products1|length - 1 - i]['product-name'] }}</h4>
+                <h4 class="mt-0 center-text"> {{ products1.iloc[products1|length - 1 - i]['product-name'] }}</h4>
               {% endif %}
 
             </div>
@@ -380,7 +381,7 @@
                     <span class="iconify" data-icon="material-symbols:keyboard-arrow-right" style="display: inline-block; font-size:20px;"></span>
                   </a>
                   {% if item2.iloc[0]['accessories'] %}
-                  <a href="{{ item2.iloc[0]['link'] }}" class="btn btn-custom" target="_blank" style="padding-left: 7px; padding-right: 5px; margin:6px; width:140px">
+                  <a href="{{ item2.iloc[0]['accessories'] }}" class="btn btn-custom" target="_blank" style="padding-left: 7px; padding-right: 5px; margin:6px; width:140px">
                     <span> ACCESOIRES </span>
                     &nbsp;
                     <span class="iconify" data-icon="material-symbols:keyboard-arrow-right" style="display: inline-block; font-size:20px"></span>
@@ -437,12 +438,12 @@
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-12 center-image-md">
               {% if products2.iloc[products2|length - 1 - i]['new'] %}
-                <h4 class="mt-0 float-left center-text" >
+                <h4 class="mt-0 center-text" >
                   <span class="badge bg-danger text-light">NEW</span>
-                  &nbsp;{{ products2.iloc[products2|length - 1 - i]['product-name'] }}
+                  <span id="comp-prod-2"> &nbsp;{{ products2.iloc[products2|length - 1 - i]['product-name'] }}</span>
                 </h4>
               {% else %}
-                <h4 class="mt-0 float-left center-text"> {{ products2.iloc[products2|length - 1 - i]['product-name'] }}</h4>
+                <h4 class="mt-0 center-text"> {{ products2.iloc[products2|length - 1 - i]['product-name'] }}</h4>
               {% endif %}
 
             </div>

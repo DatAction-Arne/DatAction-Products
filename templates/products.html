@@ -91,7 +91,7 @@
         <span class="iconify" data-icon="mdi:filter-menu" style="display: inline-block; font-size:15px;"> </span>
         <span> &nbsp;  Filter </span>
       </button>
-      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasFilter" aria-labelledby="offcanvasFilter1">
+      <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasFilter" aria-labelledby="offcanvasFilter1" style="width:300px;">
         <div class="offcanvas-header">
           <h5 class="offcanvas-title" id="offCanvasFilter1">Filter</h5>
           <button type="button" class="btn-close text-reset" data-mdb-dismiss="offcanvas" aria-label="Close"></button>
@@ -181,9 +181,12 @@
               </div>
               <div class="col-8 col-sm-9 col-md-9 col-lg-9 center-image-xs" >
                 {% if products.iloc[iter - 1 - i]['new'] %}
-                  <h4 class="mt-0 float-left"><span class="badge bg-danger text-light">NEW</span>&nbsp;{{ products.iloc[iter - 1 - i]['product-name'] }}</h4>
+                  <h4 class="mt-0 center-text-xs">
+                    <span class="badge bg-danger text-light" >NEW</span>
+                    <span id="prod-name"> &nbsp;{{ products.iloc[iter - 1 - i]['product-name'] }}</span>
+                  </h4>
                 {% else %}
-                  <h4 class="mt-0 float-left"> {{ products.iloc[iter - 1 - i]['product-name'] }}</h4>
+                  <h4 class="mt-0 center-text-xs"> {{ products.iloc[iter - 1 - i]['product-name'] }}</h4>
                 {% endif %}
                   <div class="mobile-hidden-text">
 

@@ -16,9 +16,6 @@ numpy = "1.21.6"
 html5lib = "1.1"
 pdfkit = "1.0.0"
 schedule = "1.1.0"
-scipy = "1.8.0"
-wkhtmltopdf-pack-ng = "0.12.3.0"
-
 
 [tool.poetry.dev-dependencies]
 

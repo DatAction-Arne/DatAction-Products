@@ -214,17 +214,6 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
-name = "scipy"
-version = "1.8.0"
-description = "SciPy: Scientific Library for Python"
-category = "main"
-optional = false
-python-versions = ">=3.8,<3.11"
-
-[package.dependencies]
-numpy = ">=1.17.3,<1.25.0"
-
-[[package]]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -255,14 +244,6 @@ MarkupSafe = ">=2.1.1"
 watchdog = ["watchdog"]
 
 [[package]]
-name = "wkhtmltopdf-pack-ng"
-version = "0.12.3.0"
-description = "wkhtmltopdf for Python on Heroku/cloudControl buildpacks"
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "zope.event"
 version = "4.6"
 description = "Very basic event publishing system"
@@ -290,7 +271,7 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.10.2"
-content-hash = "3211eda433f08c8985477fc0de98b846d10adc7ec0e97d743fcb7001de061a2b"
+content-hash = "bb9653d3075e8ec811b34f068d0913127d423db20cf99aa6189cc49fd941ebff"
 
 [metadata.files]
 cffi = []
@@ -312,10 +293,8 @@ pymysql = []
 python-dateutil = []
 pytz = []
 schedule = []
-scipy = []
 six = []
 webencodings = []
 werkzeug = []
-wkhtmltopdf-pack-ng = []
 "zope.event" = []
 "zope.interface" = []
